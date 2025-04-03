@@ -138,7 +138,7 @@
             <?php
               if($_SESSION["accessprivilege"] != 'Restricted'){    
                 echo '
-                  <li class="nav-item"><a href="access" class="nav-link"><i class="icon-key"></i> <span>Access Privilege</span></a></li>     
+                  <li class="nav-item"><a href="access" class="nav-link"><i class="icon-key"></i> <span>Access Rights</span></a></li>     
                 ';
               }
             ?>

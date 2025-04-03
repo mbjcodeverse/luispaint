@@ -15,7 +15,7 @@
               <br>
 
               <!-- <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i> -->
-              <h5 class="mb-0">Login your online account</h5>
+              <h5 class="mb-0">Login your web account</h5>
               <span class="d-block text-muted">Enter your credentials below</span>
             </div>
             <div class="form-group form-group-feedback form-group-feedback-left">
