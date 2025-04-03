@@ -5,7 +5,7 @@
     <div class="card" style="border:1px solid rgba(255, 255, 255, 0.1);box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7); border-radius: 10px;">
       <!-- <div class="loader-transparent rounded"></div> -->
       <div class="card-header d-flex bg-transparent border-bottom" style="border:1px solid rgba(255, 255, 255, 0.3);box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); border-radius: 10px;">
-        <h5 class="card-title flex-grow-1 profile-header-title">USER ACCESS RIGHTS</h5>
+        <h5 class="card-title flex-grow-1 profile-header-title">USER ACCESS PRIVILEGE</h5>
         <input type="hidden" name="trans_type" id="trans_type" value="New" required>
         <input type="hidden" id="txt-userid" name="txt-userid" required> 
         <input type="hidden" id="txt-username" name="txt-username" required> 
