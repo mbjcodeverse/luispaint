@@ -1,0 +1,432 @@
+/* .my_modal_title {
+	color:lightcyan;
+	font-size:1.5em;
+	letter-spacing: 2px;
+	font-weight:400;
+}
+
+.my_user_image {
+	border-radius:10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.select-items div{
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+} */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/*background color of scroll*/
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 4px grey; 
+  border-radius: 4px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 4px grey; 
+  /*background: lightgray; */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: gray; 
+}
+
+
+.loader { 
+  display: none;
+}
+
+.loader-transparent {
+  z-index: 999999 !important;
+  position: fixed;
+  display: none;
+  background-color: #262d3c;
+  opacity: .5;
+}
+
+table.scroll {
+    width: 100%;
+    border-spacing: 0;
+    border: 2px solid black;
+}
+
+table.scroll th,
+table.scroll td,
+table.scroll tr,
+table.scroll thead,
+table.scroll tbody { display: block; }
+
+
+/*RIVSON CONSOLIDATED - Upper Left of the FORM*/
+.company-name{ 
+  color:cyan;
+  font-size: 2.2em;
+}
+
+/*Employees, Supplier, Products, etc.*/
+.profile-header-title{
+  color:lightskyblue;
+  font-size: 1.7em;
+}
+
+.profile-code{
+  text-align: center;
+  color:greenyellow;
+}
+
+.transaction-id{
+  text-align: center;
+  color:greenyellow;
+}
+
+.transaction-status{
+  text-align: center;
+  color:deepskyblue;
+}
+
+/*Upper right corner of transaction form*/
+.transaction-branch-name{
+  font-size: 1.5em;
+  text-align:right;
+  padding-top: 23px;
+  color:#fcd9fb;
+  padding-bottom: 0;
+}
+
+.transaction-name{ 
+  color:cyan;
+  font-size: 1.7em;
+  padding-top: 9px;
+}
+
+
+
+
+/*  GRID of enlisted transaction items  */
+table.transaction-header-product-list thead{
+  background-color: #273244;
+  line-height: 8px;
+  color: gold; font-size: 1.1em;
+}
+
+table.transaction-header-product-list thead tr{
+  /*border: 1px solid rgba(110, 110, 110, .6);*/
+}
+
+table.transaction-header-product-list thead td{
+  /*border-right: 1px solid #6e6e6e;*/
+}
+
+
+/* FOOTER - Transaction Totals and Other Details */
+table.transaction-footer{
+  width:100%;
+  background-color: #2e384a;
+  border: 1px solid rgba(110, 110, 110, .8);
+}
+
+table.transaction-footer td{
+  /*border-right: 1px solid #606060;*/
+}
+
+/*table.payableListTable tbody tr {
+max-height: 35px;
+padding:0;
+}*/
+
+.overall_total{
+  color: lightgreen;
+}
+
+.discount_total{
+  color: #fa7c70;
+}
+
+.net_total{
+  color: lightgreen;
+}
+
+button[disabled]{
+  color: #fc88ad;
+}
+
+button[disabled]:hover {
+  color: #fc88ad;
+}
+
+
+
+/*Date, Time, Code, etc.*/
+.transaction-general-detail{
+  font-size: 1.5em;
+}
+
+/*Invoice #, Delivery #, Incoming #*/
+.transaction-code{
+  text-align: right;
+  color: #f6d6ff;
+}
+
+
+/*TRANSACTION GRID - Sales, Purchase Order, Incoming Stock, Payable, Receivable,etc.
+Usually first column of table is an Item Description align on left*/
+table.transaction-grid{
+  font-size: 1.3em;
+}
+
+table.transaction-grid thead{
+  background-color: #273244;
+  line-height: 10px;
+  color: #fcf8bd;   /*light yellow*/
+}
+
+/*Total Value of Transaction Grid - e.g. Payables, Receivables, etc.*/
+table.transaction-grid tfoot{
+  background-color: #273244;
+  font-size: 1.2em;
+  line-height: 16px;
+  color: gold;
+  font-weight: 500;
+  text-align: right;
+}
+
+/*Make table header fixed when scroll*/
+table.transaction-grid thead tr th{
+  position: sticky;
+  top: 0;
+  background-color: #273244;
+}
+
+table.transaction-grid-small-font{
+  font-size: 1.1em;
+}
+
+table.transaction-grid-small-font thead{
+  background-color: #273244;
+  line-height: 8px;
+  color: #fcf8bd;
+}
+
+table.transaction-grid thead tr th:not(:first-child),
+table.transaction-grid tbody tr td:not(:first-child)
+{
+  text-align: right;
+}
+
+/*Draggable Modal - modal header cursor*/
+.modal-header {
+  cursor: move;
+}
+
+/*Table footer Total Amount (lower right of transaction grid)*/
+table.transaction-grid tfoot tr td:last-child
+{
+  text-align: center;
+  color:lightgreen;
+  font-size: 1.3em;
+}
+
+.datatable-form-title{
+  color: white;
+}
+
+.datatable-small-font{
+  font-size:1.1em;
+}
+
+/*Right Side Procedure Buttons ---------------------------*/
+button.right-btn-procedure{
+  height:83px;
+  font-size: 1.2em;
+  text-shadow: 2px 2px #3d3d3d;
+  box-shadow: 0.8px 0.8px #999999;
+}
+
+/*Right Side Procedure Button - LOGOUT -------------------*/
+button.right-btn-procedure-logout{
+  height:83px;
+  font-size: 1.2em;
+  text-shadow: 2px 2px #3d3d3d;
+  color:#fcc0e9;
+  box-shadow: 0.8px 0.8px #999999;
+}
+
+/*Right Side Procedure Button - HELP ---------------------*/
+button.right-btn-procedure-help{
+  height:83px;
+  font-size: 1.2em;
+  text-shadow: 2px 2px #3d3d3d;
+  color:#c7fcf1;
+  box-shadow: 0.8px 0.8px #999999;
+}
+
+.h-divider{
+ margin-top:10px;
+ height:1px;
+ width:100%;
+ border-top:1px solid slategray;
+}
+
+
+
+
+
+/*---- Accounts Payable and Receivable payment details table ---*/
+table.payment-grid{
+  width:100%;
+  background-color: #2e384a;
+}
+
+/*First row of payment grid - Amount | Value*/
+/*table.payment-grid tbody tr:first-child
+{
+  font-size: 1.4em;
+  color:lightgreen;
+}
+
+table.payment-grid tbody tr:first-child td:nth-child(2)
+{
+  font-size: 1.6em;
+  color:lightgreen;
+  text-align: center;
+}*/
+
+
+/*First Column - Labels*/
+table.payment-grid tbody tr td:nth-child(1)
+{
+  width:30%;
+  font-size: 1.3em;
+  height:30;
+  text-align: right;
+}
+
+/*Second Column - Controls*/
+table.payment-grid tbody tr td:nth-child(2)
+{
+  width:70%;
+  padding:3px;
+  padding-bottom: 1px;
+}
+
+
+
+
+
+/* PROFILE List Header Style (Employees, Clients, Supplier, etc.)*/
+table.profile-grid-header thead{
+  background-color: #273244;
+  line-height: 10px;
+  color: #fcf8bd;
+}
+
+.profile-name{ 
+  color:cyan;
+  font-size: 1.5em;
+}
+
+.hide-cursor{
+  color: transparent;
+  text-shadow: 0 0 0 lightgreen;
+
+  &:focus {
+    color:yellow;
+      /*outline: none;*/
+  }
+}
+
+/*.numeric:focus{
+  color:yellow;
+}*/
+
+/*REPORT Table Header*/
+.table_head_left_fixed{
+  position: sticky;
+  top: 0;
+  background:rgba(13, 0, 0,0.6);
+  box-shadow: inset 1px 1px #fff, 0 1px #fff;
+}
+
+.table_head_center_fixed{
+  text-align: center;
+  position: sticky;
+  top: 0;
+  background:rgba(13, 0, 0,0.6);
+  box-shadow: inset 1px 1px #fff, 0 1px #fff;
+}
+
+.table_head_right_fixed{
+  text-align: right;
+  position: sticky;
+  top: 0;
+  background:rgba(13, 0, 0,0.6);
+  box-shadow: inset 1px 1px #fff, 0 1px #fff;
+}
+
+
+/*Transaction Scrollable Table Body*/
+/*.fixed_header{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}*/
+
+.fixed_header tbody{
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 300px;
+}
+
+/*.fixed_header thead {
+   display: block;
+}*/
+
+/*.fixed_header thead {
+  background: black;
+  color:#fff;
+}*/
+
+/*.fixed_header th, .fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 200px;
+}*/
+
+/*REPORT Table Header*/
+.table_head_left_fixed{
+  position: sticky;
+  top: 0;
+  background:rgba(48, 50, 54,0.6);
+  box-shadow: inset 1px 1px #fff, 0 1px #fff;
+}
+
+.table_head_center_fixed{
+  text-align: center;
+  position: sticky;
+  top: 0;
+  background:rgba(48, 50, 54,0.6);
+  box-shadow: inset 1px 1px #fff, 0 1px #fff;
+}
+
+.table_head_right_fixed{
+  text-align: right;
+  position: sticky;
+  top: 0;
+  background:rgba(48, 50, 54,0.6);
+  box-shadow: inset 1px 1px #fff, 0 1px #fff;
+}
+
+/*Seller table row highlighting*/
+tr.row_selected{
+  background-color:#313445 !important;
+  /*border: 2px solid yellow;*/
+}
