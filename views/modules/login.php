@@ -10,7 +10,7 @@
         <div class="card mb-0" style="box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.4);">
           <div class="card-body">
             <div class="text-center mb-3">
-              <img src="views/global_assets/images/tdclogo.png" height="100">
+              <img src="views/global_assets/images/blplogo.png" height="100">
               <br>
               <br>
 
