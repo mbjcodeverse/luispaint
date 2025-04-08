@@ -106,6 +106,7 @@
 
       if(isset($_GET["route"])){
         if ($_GET["route"] == 'home' ||
+            $_GET["route"] == 'sales' ||
             $_GET["route"] == 'employees' ||
             $_GET["route"] == 'clients' ||
             $_GET["route"] == 'bank' ||

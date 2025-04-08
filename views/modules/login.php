@@ -13,13 +13,13 @@
               <span class="d-block text-muted" style="font-size: 1.2rem; color: #9bff6e;">Enter your credentials below</span>
             </div>
             <div class="form-group form-group-feedback form-group-feedback-left" style="margin-bottom: 20px; position: relative;">
-              <input type="text" class="form-control" placeholder="Username" name="loginUser" id="loginUser" autocomplete="none" required style="padding-left: 40px; padding-right: 20px; font-size: 1.2rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+              <input type="text" class="form-control" placeholder="Username" name="loginUser" id="loginUser" autocomplete="none" value="" required style="padding-left: 40px; padding-right: 20px; font-size: 1.2rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
               <div class="form-control-feedback" style="position: absolute; top: 50%; left: 5px; transform: translateY(-50%); color: #888;">
                 <i class="icon-user"></i>
               </div>
             </div>
             <div class="form-group form-group-feedback form-group-feedback-left" style="margin-bottom: 20px; position: relative;">
-              <input type="password" class="form-control" placeholder="Password" name="loginPass" required style="padding-left: 40px; padding-right: 20px; font-size: 1.2rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+              <input type="password" class="form-control" placeholder="Password" name="loginPass" value="" required style="padding-left: 40px; padding-right: 20px; font-size: 1.2rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
               <div class="form-control-feedback" style="position: absolute; top: 50%; left: 5px; transform: translateY(-50%); color: #888;">
                 <i class="icon-lock2"></i>
               </div>

@@ -18,5 +18,8 @@ require_once "models/clients.model.php";
 require_once "controllers/home.controller.php";
 require_once "models/home.model.php";
 
+require_once "controllers/sale.controller.php";
+require_once "models/sale.model.php";
+
 $template = new ControllerTemplate();
 $template -> ctrTemplate();
