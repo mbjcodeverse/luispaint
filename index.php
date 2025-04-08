@@ -6,6 +6,9 @@ require_once "extensions/vendor/autoload.php";
 require_once "controllers/employees.controller.php";
 require_once "models/employees.model.php";
 
+require_once "controllers/bank.controller.php";
+require_once "models/bank.model.php";
+
 require_once "controllers/userrights.controller.php";
 require_once "models/userrights.model.php";
 

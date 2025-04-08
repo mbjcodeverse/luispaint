@@ -99,8 +99,8 @@
             </div>
 
             <div class="col-sm-6 form-group" style="color:lemonchiffon;">
-              <label for="sel-branch">BRANCH</label>
-              <select data-placeholder="Access Type" class="form-control select" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" data-fouc id="sel-branch" name="sel-branch" required>
+              <label for="sel-bank">BANK</label>
+              <select data-placeholder="Access Type" class="form-control select" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" data-fouc id="sel-bank" name="sel-bank" required>
                 <option></option>
                 <option value="Full">Full</option>
                 <option value="ViewOnly">View Only</option>

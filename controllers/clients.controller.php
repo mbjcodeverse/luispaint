@@ -1,38 +1,33 @@
 <?php
 class ControllerClients{
-	static public function ctrCreateClient(){
-		if(isset($_POST["txt-lname"])&&isset($_POST["tns-fname"])&&($_POST["trans_type"] == 'New')){
+	static public function ctrCreateCustomer(){
+		if(isset($_POST["tns-name"])&&($_POST["trans_type"] == 'New')){
 			if (isset($_POST['chk-isactive'])){
 			    $isactive=$_POST['chk-isactive'];
 		    }else{
 		    	$isactive="0";
 		    }
 
-		    if ($_POST['date-bday'] != ''){
-		    	$bday = date('Y-m-d', strtotime($_POST["date-bday"]));
-		    }else{
-		        $bday = '0000-00-00';
-		    }
-
-		   	$data = array("clientid"=>$_POST["txt-clientid"],
+		   	$data = array("customercode"=>$_POST["txt-customercode"],
+		   		          "name"=>$_POST["tns-name"],
+		   		          "description"=>$_POST["tns-description"],
+		   		          "mobile"=>$_POST["num-mobile"],
+				          "landline"=>$_POST["num-landline"],
+				          "faxnum"=>$_POST["num-faxnum"],
+				          "website"=>$_POST["tns-website"],
+				          "contactperson"=>$_POST["tns-contactperson"],
+				          "country"=>$_POST["sel-country"],
 				          "isactive"=>$isactive,
-				          "lname"=>$_POST["txt-lname"],
-				          "fname"=>$_POST["tns-fname"],
-				          "mi"=>$_POST["txt-mi"],
-				          "bday"=>$bday,
-                        //   "gender"=>$_POST["sel-gender"],
 				          "address"=>$_POST["tns-address"],
-                          "landline"=>$_POST["num-landline"],
-				          "mobile"=>$_POST["num-mobile"],
-                          "email"=>$_POST["tns-email"],
-                          "spouse"=>$_POST["tns-spouse"]);
+				          "tin"=>$_POST["tns-tin"],
+				          "creditlimit" => str_replace(",","",$_POST["num-creditlimit"]));  
 
-		   	$answer = (new ModelClients)->mdlAddClient($data);
+		   	$answer = (new ModelClients)->mdlAddCustomer($data);
 
 		   	if($answer == "ok"){
 				echo'<script>
 	                swal.fire({
-		                title: "Client profile has been successfully saved!",
+		                title: "Customer profile has been successfully saved!",
 		                type: "success",
 		                showConfirmButton: true,
 				        confirmButtonText: "Ok",
@@ -48,40 +43,35 @@ class ControllerClients{
 		}
 	}
 
-	static public function ctrEditClient(){
-		if(isset($_POST["txt-lname"])&&isset($_POST["tns-fname"])&&($_POST["trans_type"] == 'Update')){
+	static public function ctrEditCustomer(){
+		if(isset($_POST["tns-name"])&&($_POST["trans_type"] == 'Update')){
 			if (isset($_POST['chk-isactive'])){
 			    $isactive='1';
 		    }else{
 		    	$isactive='0';
 		    }
 
-		    if ($_POST['date-bday'] != ''){
-		    	$bday = date('Y-m-d', strtotime($_POST["date-bday"]));
-		    }else{
-		        $bday = '0000-00-00';
-		    }
-
 		   	$data = array("id"=>$_POST["num-id"],
-                          "clientid"=>$_POST["txt-clientid"],
-                          "isactive"=>$isactive,
-                          "lname"=>$_POST["txt-lname"],
-                          "fname"=>$_POST["tns-fname"],
-                          "mi"=>$_POST["txt-mi"],
-                          "bday"=>$bday,
-                        //   "gender"=>$_POST["sel-gender"],
-                          "address"=>$_POST["tns-address"],
-                          "landline"=>$_POST["num-landline"],
-                          "mobile"=>$_POST["num-mobile"],
-                          "email"=>$_POST["tns-email"],
-                          "spouse"=>$_POST["tns-spouse"]);
+                          "customercode"=>$_POST["txt-customercode"],
+		   		          "name"=>$_POST["tns-name"],
+		   		          "description"=>$_POST["tns-description"],
+		   		          "mobile"=>$_POST["num-mobile"],
+				          "landline"=>$_POST["num-landline"],
+				          "faxnum"=>$_POST["num-faxnum"],
+				          "website"=>$_POST["tns-website"],
+				          "contactperson"=>$_POST["tns-contactperson"],
+				          "country"=>$_POST["sel-country"],
+				          "isactive"=>$isactive,
+				          "address"=>$_POST["tns-address"],
+				          "tin"=>$_POST["tns-tin"],
+				          "creditlimit" => str_replace(",","",$_POST["num-creditlimit"]));   
 
-		   	$answer = (new ModelClients)->mdlEditClient($data);
+		   	$answer = (new ModelClients)->mdlEditCustomer($data);
 
 		   	if($answer == "ok"){
 				echo'<script>
 	                swal.fire({
-		                title: "Client profile has been successfully updated!",
+		                title: "Customer profile has been successfully updated!",
 		                type: "success",
 		                showConfirmButton: true,
 				        confirmButtonText: "Ok",
@@ -97,34 +87,18 @@ class ControllerClients{
 		}
 	}	
 
-	static public function ctrShowClients($item, $value){
-		$answer = (new ModelClients)->mdlShowClients($item, $value);
+	static public function ctrShowCustomer($item, $value){
+		$answer = (new ModelClients)->mdlShowCustomer($item, $value);
+		return $answer;
+	}	
+
+	static public function ctrShowCustomerList(){
+		$answer = (new ModelClients)->mdlShowCustomerList();
+		return $answer;
+	}		
+
+	static public function ctrShowCustomerInfo($item, $value){
+		$answer = (new ModelClients)->mdlShowCustomerInfo($item, $value);
 		return $answer;
 	}
-
-	static public function ctrShowClientName($item, $value){
-		$answer = (new ModelClients)->mdlShowClientName($item, $value);
-		return $answer;
-	}
-
-	static public function ctrShowGender(){
-		$answer = (new ModelClients)->mdlShowGender();
-		return $answer;
-	}
-    
-	static public function ctrShowEmployeesList(){
-		$answer = (new ModelClients)->mdlShowEmployeesList();
-		return $answer;
-	}    
-
-	// static public function ctrShowPosition(){
-	// 	$answer = (new ModelClients)->mdlShowPosition();
-	// 	return $answer;
-	// }	
-
-	// static public function ctrShowDriverClients($item, $value){
-	// 	$table = "employees";
-	// 	$answer = (new ModelClients)->mdlShowDriverClients($table, $item, $value);
-	// 	return $answer;
-	// }
 }

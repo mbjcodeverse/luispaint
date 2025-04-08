@@ -1,18 +1,19 @@
 <?php
 require_once "../controllers/clients.controller.php";
 require_once "../models/clients.model.php";
-class AjaxClient{
-    public $idClient;
-    public function ajaxGetClient(){
+
+class AjaxCustomer{
+    public $idCustomer;
+    public function ajaxGetCustomer(){
       $item = "id";
-      $value = $this->idClient;
-      $answer = (new ControllerClients)->ctrShowClients($item, $value);
+      $value = $this->idCustomer;
+      $answer = (new ControllerClients)->ctrShowCustomer($item, $value);
       echo json_encode($answer);
     }
 }
  
-if(isset($_POST["idClient"])){
-  $getClient = new AjaxClient();
-  $getClient -> idClient = $_POST["idClient"];
-  $getClient -> ajaxGetClient();
+if(isset($_POST["idCustomer"])){
+  $getCustomer = new AjaxCustomer();
+  $getCustomer -> idCustomer = $_POST["idCustomer"];
+  $getCustomer -> ajaxGetCustomer();
 }

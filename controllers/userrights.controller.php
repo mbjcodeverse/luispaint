@@ -49,7 +49,7 @@ class ControllerUserRights{
 					$_SESSION["dashboard"] = $answer["dashboard"];
 					$_SESSION["clients"] = $answer["clients"];
 					$_SESSION["employees"] = $answer["employees"];
-					$_SESSION["branch"] = $answer["branch"];
+					$_SESSION["bank"] = $answer["bank"];
 					$_SESSION["accessprivilege"] = $answer["accessprivilege"];
 
 					$_SESSION["photo"] = $answer["photo"];

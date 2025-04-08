@@ -128,7 +128,13 @@
                         echo '
                              <li class="nav-item"><a href="employees" class="nav-link">Employees</a></li>  
                         ';
-                      }                    
+                      }          
+                      
+                      if($_SESSION["bank"] != 'Restricted'){     
+                        echo '
+                             <li class="nav-item"><a href="bank" class="nav-link">Banks</a></li>  
+                        ';
+                      }      
                     echo '</ul>';
                   echo '</li>';
               }

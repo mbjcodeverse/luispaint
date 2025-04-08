@@ -48,7 +48,7 @@ $(function() {
                 $("#sel-dashboard").val(answer["dashboard"]).trigger('change');
                 $("#sel-clients").val(answer["clients"]).trigger('change');
                 $("#sel-employees").val(answer["employees"]).trigger('change');
-                $("#sel-branch").val(answer["branch"]).trigger('change');
+                $("#sel-bank").val(answer["bank"]).trigger('change');
                 $("#sel-accessprivilege").val(answer["accessprivilege"]).trigger('change');
 
                 $("#trans_type").val("Update");
@@ -89,7 +89,7 @@ $(function() {
         $("#sel-dashboard").val('').trigger('change');
         $("#sel-clients").val('').trigger('change');
         $("#sel-employees").val('').trigger('change');
-        $("#sel-branch").val('').trigger('change');
+        $("#sel-bank").val('').trigger('change');
         $("#sel-accessprivilege").val('').trigger('change');
     }
 
@@ -143,7 +143,7 @@ $(function() {
         var dashboard = $("#sel-dashboard").val();
         var clients = $("#sel-clients").val();
         var employees = $("#sel-employees").val();
-        var branch = $("#sel-branch").val();
+        var bank = $("#sel-bank").val();
         var accessprivilege = $("#sel-accessprivilege").val();
               
         var user = new FormData();
@@ -156,7 +156,7 @@ $(function() {
         user.append("dashboard", dashboard);
         user.append("clients", clients);
         user.append("employees", employees);   
-        user.append("branch", branch); 
+        user.append("bank", bank); 
         user.append("accessprivilege", accessprivilege);   
         user.append("username", username);
         user.append("upassword", upassword);    

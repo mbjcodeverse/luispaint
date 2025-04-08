@@ -17,7 +17,7 @@
   <link href="views/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
   <!-- Include Font Awesome if it's not already included -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
   <!-- <link href="views/assets/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
 
@@ -42,6 +42,7 @@
 
   <!-- Core JS files -->
   <script src="views/global_assets/js/main/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
   <script src="views/global_assets/js/main/bootstrap.bundle.min.js"></script>
   <script src="views/global_assets/js/plugins/loaders/blockui.min.js"></script>
   <!-- /core JS files -->
@@ -107,6 +108,7 @@
         if ($_GET["route"] == 'home' ||
             $_GET["route"] == 'employees' ||
             $_GET["route"] == 'clients' ||
+            $_GET["route"] == 'bank' ||
             $_GET["route"] == 'access' ||
             $_GET["route"] == 'resetloginaccount' ||
             $_GET["route"] == 'default' ||

@@ -12,7 +12,7 @@ class userRightsEntry{
   public $dashboard;
   public $clients;
   public $employees;
-  public $branch;
+  public $bank;
   public $accessprivilege;
   public $username;
   public $upassword;
@@ -27,7 +27,7 @@ class userRightsEntry{
   	$dashboard = $this->dashboard;
     $clients = $this->clients;
   	$employees = $this->employees;
-    $branch = $this->branch;
+    $bank = $this->bank;
   	$accessprivilege = $this->accessprivilege;
     $username = $this->username;
     $upassword = $this->upassword;
@@ -40,7 +40,7 @@ class userRightsEntry{
                   "dashboard"=>$dashboard,
                   "clients"=>$clients,
                   "employees"=>$employees,
-                  "branch"=>$branch,
+                  "bank"=>$bank,
                   "accessprivilege"=>$accessprivilege,
                   "username"=>$username,
                   "upassword"=>$upassword);
@@ -67,7 +67,7 @@ $inputUserRights -> reports = $_POST["reports"];
 $inputUserRights -> dashboard = $_POST["dashboard"];
 $inputUserRights -> clients = $_POST["clients"];
 $inputUserRights -> employees = $_POST["employees"];
-$inputUserRights -> branch = $_POST["branch"];
+$inputUserRights -> bank = $_POST["bank"];
 $inputUserRights -> accessprivilege = $_POST["accessprivilege"];
 $inputUserRights -> username = $_POST["username"];
 $inputUserRights -> upassword = $_POST["upassword"];
