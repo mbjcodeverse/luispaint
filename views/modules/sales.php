@@ -159,8 +159,8 @@
                 <select data-placeholder="< Select Client >" class="form-control select-search" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" id="lst-customercode" name="lst-customercode">
                     <option value="" selected hidden disabled>&lt;&nbsp;Select Client&nbsp;&gt;</option>
                     <?php
-                        $clients = (new ControllerClients)->ctrShowCustomerList();
-                        foreach ($clients as $key => $value) {
+                        $customers = (new ControllerClients)->ctrShowCustomerList();
+                        foreach ($customers as $key => $value) {
                         echo '<option value="'.$value["customercode"].'">'.$value["name"].'</option>';
                         }
                     ?>
@@ -222,9 +222,27 @@
               <th>Act</th>
             </tr>
           </thead>
+
+          <!-- <tfoot>
+            <tr>
+                <th colspan="3" style="text-align:right;">TOTAL AMOUNT</th>
+                <th><input type="text" class="form-control" id="num-totalamount" name="num-totalamount"></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+          </tfoot> -->
+
           <tbody>
           </tbody>
         </table>
+
+        <!-- <div class="row">
+        <div class="col-sm-2 form-group">
+                <input type="text" style="font-size:1em;padding:2px;padding-right:17px;text-align:right;color:transparent;text-shadow: 0 0 0 #ffffff;" class="form-control qty numeric" name="num-netamount" id="num-netamount" value="0.00" required>
+            </div> 
+        </div> -->
+
     </div>
   </div>
 </div>

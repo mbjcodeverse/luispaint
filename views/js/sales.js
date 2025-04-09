@@ -4,19 +4,29 @@ if (!$.fn.DataTable.isDataTable('.salesListTable')) {
         processing: true,
         autoWidth: true,
         scrollY: 360,
-        pagelength: 25,
+        ordering: false,
+        pageLength: 25,
         lengthMenu: [[25, 50], [25, 50]],
-        dom: '<"datatable-header"><"datatable-scroll"t><"datatable-footer"fp>',
-                language: {
-                    loadingRecords: 'Please wait - loading...',
-                    processing: '<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>',
-                    search: '<span>Filter:</span> _INPUT_',
-                    searchPlaceholder: 'Type to filter...',
-                    lengthMenu: '<span>Show:</span> _MENU_',
-                    paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
-                }
+        dom: '<"datatable-header"><"extra-row"> <"datatable-scroll"t><"datatable-footer"fp>',
+        language: {
+            loadingRecords: 'Please wait - loading...',
+            processing: '<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>',
+            search: '<span>Filter:</span> _INPUT_',
+            searchPlaceholder: 'Type to filter...',
+            lengthMenu: '<span>Show:</span> _MENU_',
+            paginate: { 
+                'first': 'First', 
+                'last': 'Last', 
+                'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 
+                'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' 
+            }
+        },
+        columnDefs: [
+            { targets: [3, 4, 5], className: 'text-right' } // Adjust column indices as needed
+        ]
     });
-  }
+}
+
 
 $(function() {
     $('input[type="text"], textarea').css('border', '1px solid rgba(255, 255, 255, 0.3)');
@@ -24,6 +34,40 @@ $(function() {
     $(".select").select2({
         minimumResultsForSearch: Infinity,
     });
+
+    // Tabbing Sequence
+    var tabSequence = [
+        '#sel-customercode', 
+        '#date-sdate', 
+        '#txt-status', 
+        '#txt-invno', 
+        '#txt-receiptnum', 
+        '#sel-salemode', 
+        '#num-netamount', 
+        '#txt-remarks', 
+        '#btn-new', 
+        '#btn-search', 
+        '#btn-save'
+    ];
+
+    // Function to handle tabbing behavior
+    $('input, select, button').on('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();  // Prevent the default tab action
+            var currentIndex = tabSequence.indexOf('#' + this.id);
+            var nextIndex = (currentIndex + 1) % tabSequence.length;  // Loop back to the start if at the end
+            $(tabSequence[nextIndex]).focus();
+        }
+    });
+
+    // Change the border color on focus and reset it on blur
+    $('input, select, button').on('focus', function() {
+        $(this).css('border-color', '#007bff');    // Change border color on focus
+    }).on('blur', function() {
+        $(this).css('border-color', '#FFFFFF4D');  // Reset border color when focus is lost
+    });
+
+    // End Tabbing -------------------------------------
 
     initialize();
   
@@ -274,7 +318,7 @@ $(function() {
 
     $("#lbl-lst-customercode").click(function(){
         $("#lst-customercode").val('').trigger('change');
-    });  
+    });
 
     $("#lbl-lst-salemode").click(function(){
         $("#lst-salemode").val('').trigger('change');
@@ -300,7 +344,7 @@ $(function() {
         if (date_range != ''){
             var start_date = date_range.substring(6, 10) + '-' + date_range.substring(0, 2) + '-' + date_range.substring(3, 5);
             var end_date = date_range.substring(19, 23) + '-' + date_range.substring(13, 15) + '-' + date_range.substring(16, 18);
-        }else{
+        } else {
             var start_date = '';
             var end_date = '';
         }
@@ -322,27 +366,36 @@ $(function() {
             contentType: false,
             processData: false,
             dataType: "json",
-            success: function(answer) {    
-                $(".salesListTable").DataTable().clear();
+            success: function(answer) {
+                $(".salesListTable").DataTable().clear(); // Clear previous table data
+                var total_amount = 0.00;
+                var total_paid = 0.00;
+                var total_balance = 0.00;
+    
+                // Loop through the data and populate the table
                 for (var i = 0; i < answer.length; i++) {
                     var si = answer[i];
-
+    
                     var invno = si.invno;
                     var name = si.name;
                     var receiptnum = si.receiptnum;
-                    
                     var sale_date = si.sdate;
                     var saledate = sale_date.split("-");
-                    sdate = saledate[1] + "/" + saledate[2] + "/" + saledate[0];
+                    var sdate = saledate[1] + "/" + saledate[2] + "/" + saledate[0];
     
-                    var netamount = numberWithCommas(si.netamount);    
+                    var netamount = numberWithCommas(si.netamount);
                     var paid = numberWithCommas(si.paid);
                     var balance = numberWithCommas(si.balance);
     
-                    var button = "<td><button type='button' class='btn btn-outline btn-sm bg-green-400 border-green-400 text-green-400 btn-icon rounded-round border-2 ml-2 btnSale' invno='" + invno + "'><i class='icon-pencil3'></i></button></td>";
+                    total_amount += parseFloat(si.netamount);
+                    total_paid += parseFloat(si.paid);
+                    total_balance += parseFloat(si.balance);
     
-                    slst.row.add([sdate, receiptnum, name, netamount, paid, balance, button]);
+                    var button = "<td><button type='button' class='btn btn-outline btn-sm bg-green-400 border-green-400 text-green-400 btn-icon rounded-round border-2 ml-2 btnSale' invno='" + invno + "'><i class='icon-pencil3'></i></button></td>";
+                    slst.row.add([sdate, receiptnum, name, netamount, paid, balance, button])
                 }
+                // $('#num-totalamount').val(numberWithCommas(total_amount.toFixed(2)));
+                // slst.row.add(['', '', 'TOTAL AMOUNT', numberWithCommas(total_amount), numberWithCommas(total_paid), numberWithCommas(total_balance), '']);
                 slst.draw();
             },
             beforeSend: function() {},
@@ -352,10 +405,10 @@ $(function() {
                     "padding-top": "5px",
                     "padding-bottom": "5px"
                 });
-            },
+            }
         });
     });
-
+    
     // Ensure that padding is applied whenever DataTable redraws (e.g., page switch or filtering)
     $(".salesListTable").on("draw.dt", function () {
         $(".salesListTable td").css({

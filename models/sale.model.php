@@ -69,7 +69,7 @@ class ModelSale{
                                               remarks = :remarks,
                                               editinfo = :editinfo
                                            WHERE invno = :invno");
-                                           
+
             $stmt->bindParam(":invno", $data["invno"], PDO::PARAM_STR);
 			$stmt->bindParam(":receiptnum", $data["receiptnum"], PDO::PARAM_STR);
 			$stmt->bindParam(":sdate", $data["sdate"], PDO::PARAM_STR);
@@ -135,7 +135,8 @@ class ModelSale{
 		$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,a.customercode,a.name,b.netamount,
                                                       IFNULL(SUM(c.amount),0.00) AS paid,(b.netamount - IFNULL(SUM(c.amount),0.00)) AS balance
                                                       FROM customer AS a INNER JOIN sales AS b ON (a.customercode = b.customercode)
-                                                      LEFT JOIN receivableitems AS c ON (b.invno = c.invno) $whereClause GROUP BY b.invno $pay_status");
+                                                      LEFT JOIN receivableitems AS c ON (b.invno = c.invno) $whereClause GROUP BY b.invno $pay_status
+                                                      ORDER BY b.sdate");
 
 		$stmt -> execute();
 		return $stmt -> fetchAll();

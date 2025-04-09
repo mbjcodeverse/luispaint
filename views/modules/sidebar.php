@@ -78,7 +78,7 @@
             <?php
               if($_SESSION["receivable"] != 'Restricted'){
                 echo '
-                  <li class="nav-item"><a href="receivable" class="nav-link"><i class="icon-drawer-in"></i> <span>Receivable</span></a></li>     
+                  <li class="nav-item"><a href="receivables" class="nav-link"><i class="icon-drawer-in"></i> <span>Receivable</span></a></li>     
                 '; 
               }
             ?>                     

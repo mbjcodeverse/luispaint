@@ -109,6 +109,7 @@
             $_GET["route"] == 'sales' ||
             $_GET["route"] == 'employees' ||
             $_GET["route"] == 'clients' ||
+            $_GET["route"] == 'receivables' ||
             $_GET["route"] == 'bank' ||
             $_GET["route"] == 'access' ||
             $_GET["route"] == 'resetloginaccount' ||

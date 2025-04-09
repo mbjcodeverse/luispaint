@@ -21,5 +21,8 @@ require_once "models/home.model.php";
 require_once "controllers/sale.controller.php";
 require_once "models/sale.model.php";
 
+require_once "controllers/receivable.controller.php";
+require_once "models/receivable.model.php";
+
 $template = new ControllerTemplate();
 $template -> ctrTemplate();
