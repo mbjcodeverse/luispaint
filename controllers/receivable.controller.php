@@ -64,13 +64,6 @@ class ControllerReceivable{
 		return $answer;
 	}
 
-
-
-
-
-
-
-
 	static public function ctrGetClientPayment($paynum){
 		$answer = (new ModelReceivable)->mdlGetClientPayment($paynum);
 		return $answer;

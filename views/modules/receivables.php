@@ -42,9 +42,9 @@
                   <table class="table table-hover transaction-header-product-list" id="trans-table">
                     <thead class="sticky-top">
                       <tr>
-                        <td width="10%" style="border-right: 1px solid #808080;">Date</td>
+                        <td width="10%" style="border-right: 1px solid #808080;">&nbsp;&nbsp;Date</td>
                         <td width="12%" style="border-right: 1px solid #808080;">Receipt #</td>
-                        <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Amount</td>
+                        <td width="11%" style="text-align: left;border-right: 1px solid #808080;padding-right:6px;">&nbsp;&nbsp;Invoice #</td>
                         <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Adjustment</td>
                         <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Net Amnt</td>
                         <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Posted</td>
@@ -153,6 +153,16 @@
                   <input type="text" class="form-control datepicker" data-mask="99/99/9999" placeholder="Pick a date&hellip;" id="date-paydate" name="date-paydate">
                 </div>    
             </div>  
+
+            <!-- <div class="col-sm-4 form-group">
+              <label for="sel-estatus">Status</label>
+              <select data-placeholder="Select Status" class="form-control select" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" data-fouc id="sel-estatus" name="sel-estatus" required>
+                <option></option>
+                <option value="Regular">Regular</option>
+                <option value="Probationary">Probationary</option>
+                <option value="Contractual">Contractual</option>
+              </select>
+            </div> -->
 
             <div class="row">                  
               <div class="col-sm-12 form-group" style="margin:0;margin-bottom:15px;">

@@ -161,7 +161,7 @@
                     <?php
                         $customers = (new ControllerClients)->ctrShowCustomerList();
                         foreach ($customers as $key => $value) {
-                        echo '<option value="'.$value["customercode"].'">'.$value["name"].'</option>';
+                          echo '<option value="'.$value["customercode"].'">'.$value["name"].'</option>';
                         }
                     ?>
                 </select>

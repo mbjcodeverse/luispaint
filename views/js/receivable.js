@@ -42,6 +42,12 @@ if (!$.fn.DataTable.isDataTable('.pendingListTable')) {
 $(function() {
   disableControls();
 
+  $(".select").select2({
+    minimumResultsForSearch: Infinity,
+  });
+
+  $(".select-search").select2();
+
   $('#modal-search-receivable').on('shown.bs.modal', function (e) {
       loadReceivableList();
   });
@@ -119,8 +125,6 @@ $(function() {
           var trans_type = $("#trans_type").val();
 
           var paymode = $("#sel-paymode").val();
-          var branchcode = $("#branch_code").val();
-
           let format_paydate = $("#date-paydate").val().split("/");
           format_paydate = format_paydate[2] + "-" + format_paydate[0] + "-" + format_paydate[1];          
           var paydate = format_paydate; 
@@ -150,11 +154,8 @@ $(function() {
           var paymentlist = $("#paymentlist").val();
 
           //--------------------------------------        
-
           var receivable = new FormData();
           receivable.append("trans_type", trans_type);
-          
-          receivable.append("branchcode", branchcode);
           receivable.append("paydate", paydate);
           receivable.append("paymode", paymode);
           receivable.append("checkdesc", checkdesc);
@@ -176,9 +177,8 @@ $(function() {
              processData: false,
              dataType:"text",
              success:function(answer){
-                var branch_code = $("#branch_code").val();
                 var cust_code = $("#tns-customercode").val();
-                paintReceivableTable(branch_code,cust_code);
+                paintReceivableTable(cust_code);
                 $("#total-payment").val('0.00');
 
                 let paynum = answer;
@@ -188,9 +188,8 @@ $(function() {
                 alert("Oops. Something went wrong!");
              },
              complete: function () {
-                let pay_num = $("#paynum").val(); 
-                let branch_name = $("#branch_name").val(); 
-                window.open("extensions/tcpdf/pdf/paymentdetails.php?paynum="+pay_num+"&postedby="+postedby+"&branch_name="+branch_name, "_blank");
+                // let pay_num = $("#paynum").val(); 
+                // window.open("extensions/tcpdf/pdf/paymentdetails.php?paynum="+pay_num+"&postedby="+postedby, "_blank");
 
                 swal.fire({
                     title: 'Receivable transaction successfully saved!',
@@ -385,9 +384,9 @@ $(function() {
     })
  });          
 
- $("#btn-admin-direct-reset").click(function(){
-   reset_receivable();
- });
+//  $("#btn-admin-direct-reset").click(function(){
+//    reset_receivable();
+//  });
  
  // Show Credit Details
 //  $(".receivable-form tbody").on('click', '.btnCreditDetails', function () {
@@ -395,145 +394,145 @@ $(function() {
 //     window.open("extensions/tcpdf/pdf/deliverysaleview.php?invno="+invno, "_blank");
 //  }); 
 
- function reset_receivable(){
-  // Focus input override textbox after sweetalert is closed
-  $('#reset-override').focus();
-  if ($("#reset-override").val() == ''){  // empty override key
-     swal.fire({
-        title: 'Cannot Reset, override key must be entered!',
-        type: 'error',
-        confirmButtonText: 'Got it',
-        confirmButtonClass: 'btn btn-outline-warning',
-        allowOutsideClick: false,
-        buttonsStyling: false
-     }).then(function(result){
-        if(result.value) {              
-          $('#reset-override').focus();
-        }
-     });
-  }else{
-     let override_key = $("#reset-override").val();
-     var reset_sale = new FormData();
-     reset_sale.append("override_key", override_key);
-     $.ajax({
-        url:"ajax/get_override_key.ajax.php",
-        method: "POST",
-        data: reset_sale,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType:"json",
-        success:function(answer){
-          if(answer["override"] === undefined){  // override key not found
-            swal.fire({
-              title: 'Cannot Reset, unidentified authorization code!',
-              type: 'error',
-              confirmButtonText: 'Got it',
-              confirmButtonClass: 'btn btn-outline-warning',
-              allowOutsideClick: false,
-              buttonsStyling: false,
-            }).then(function(result){
-              if(result.value) { 
-                $('#reset-override').val('');
-              }
-            });
-          }else{    // Valid override key
-            swal.fire({
-              title: 'Do you want to RESET receivable transaction?',
-              text: 'You will not be able to revert this process.',
-              type: 'question',
-              showCancelButton: true,
-              confirmButtonText: 'Yes, Reset it!',
-              cancelButtonText: 'Cancel!',
-              confirmButtonClass: 'btn btn-outline-success',
-              cancelButtonClass: 'btn btn-outline-danger',
-              allowOutsideClick: false,
-              buttonsStyling: false
-            }).then(function(result) {
-              if(result.value) {
-                var branchcode = $("#branch_code").val();
-                var prefix = $("#prefix").val();
-                var branch_name = $("#branch_name").val();
-                var postedby = $("#postedby").val();
-                var userid = $("#userid").val();
-                var user_type = $("#user_type").val();
-                // alert(prefix);
+//  function reset_receivable(){
+//   // Focus input override textbox after sweetalert is closed
+//   $('#reset-override').focus();
+//   if ($("#reset-override").val() == ''){  // empty override key
+//      swal.fire({
+//         title: 'Cannot Reset, override key must be entered!',
+//         type: 'error',
+//         confirmButtonText: 'Got it',
+//         confirmButtonClass: 'btn btn-outline-warning',
+//         allowOutsideClick: false,
+//         buttonsStyling: false
+//      }).then(function(result){
+//         if(result.value) {              
+//           $('#reset-override').focus();
+//         }
+//      });
+//   }else{
+//      let override_key = $("#reset-override").val();
+//      var reset_sale = new FormData();
+//      reset_sale.append("override_key", override_key);
+//      $.ajax({
+//         url:"ajax/get_override_key.ajax.php",
+//         method: "POST",
+//         data: reset_sale,
+//         cache: false,
+//         contentType: false,
+//         processData: false,
+//         dataType:"json",
+//         success:function(answer){
+//           if(answer["override"] === undefined){  // override key not found
+//             swal.fire({
+//               title: 'Cannot Reset, unidentified authorization code!',
+//               type: 'error',
+//               confirmButtonText: 'Got it',
+//               confirmButtonClass: 'btn btn-outline-warning',
+//               allowOutsideClick: false,
+//               buttonsStyling: false,
+//             }).then(function(result){
+//               if(result.value) { 
+//                 $('#reset-override').val('');
+//               }
+//             });
+//           }else{    // Valid override key
+//             swal.fire({
+//               title: 'Do you want to RESET receivable transaction?',
+//               text: 'You will not be able to revert this process.',
+//               type: 'question',
+//               showCancelButton: true,
+//               confirmButtonText: 'Yes, Reset it!',
+//               cancelButtonText: 'Cancel!',
+//               confirmButtonClass: 'btn btn-outline-success',
+//               cancelButtonClass: 'btn btn-outline-danger',
+//               allowOutsideClick: false,
+//               buttonsStyling: false
+//             }).then(function(result) {
+//               if(result.value) {
+//                 var branchcode = $("#branch_code").val();
+//                 var prefix = $("#prefix").val();
+//                 var branch_name = $("#branch_name").val();
+//                 var postedby = $("#postedby").val();
+//                 var userid = $("#userid").val();
+//                 var user_type = $("#user_type").val();
+//                 // alert(prefix);
 
-                var digityear = twodigityear();
+//                 var digityear = twodigityear();
 
-                // Count number of Reset (RR + Branch Prefix + User ID + 2 digit year)
-                // BRANCH PREFIX NOT WORKING - module to get the branch prefix was not included here
-                // Unlike with cashier.js
-                var reset_prefix = "RR" + prefix + userid.substring(1, 4) + digityear;
-                var reset_count = new FormData();
-                reset_count.append("reset_prefix", reset_prefix);
-                $.ajax({
-                  url:"ajax/reset_check_count_receivable.ajax.php",
-                  method: "POST",
-                  data: reset_count,
-                  cache: false,
-                  contentType: false,
-                  processData: false,
-                  dataType:"json",
-                  success:function(answer){
-                    let reset_count = answer.length + 1;
-                    let reset_count_string = String(reset_count);
-                    let reset_count_length = reset_count_string.length;
+//                 // Count number of Reset (RR + Branch Prefix + User ID + 2 digit year)
+//                 // BRANCH PREFIX NOT WORKING - module to get the branch prefix was not included here
+//                 // Unlike with cashier.js
+//                 var reset_prefix = "RR" + prefix + userid.substring(1, 4) + digityear;
+//                 var reset_count = new FormData();
+//                 reset_count.append("reset_prefix", reset_prefix);
+//                 $.ajax({
+//                   url:"ajax/reset_check_count_receivable.ajax.php",
+//                   method: "POST",
+//                   data: reset_count,
+//                   cache: false,
+//                   contentType: false,
+//                   processData: false,
+//                   dataType:"json",
+//                   success:function(answer){
+//                     let reset_count = answer.length + 1;
+//                     let reset_count_string = String(reset_count);
+//                     let reset_count_length = reset_count_string.length;
 
-                    let prefix_num = '0';
-                    let reset_sequence = prefix_num.repeat(4 - reset_count_length) + reset_count;
-                    var resetcode = reset_prefix + reset_sequence;
+//                     let prefix_num = '0';
+//                     let reset_sequence = prefix_num.repeat(4 - reset_count_length) + reset_count;
+//                     var resetcode = reset_prefix + reset_sequence;
 
-                    let resetby = $("#postedby").val();
+//                     let resetby = $("#postedby").val();
 
-                    // Actual Resetting
-                    var reset_data = new FormData();
-                    reset_data.append("branchcode", branchcode);
-                    reset_data.append("resetcode", resetcode);
-                    reset_data.append("resetby", resetby);
-                    $.ajax({
-                       url:"ajax/receivable_transaction_post_reset.ajax.php",
-                       method: "POST",
-                       data: reset_data,
-                       cache: false,
-                       contentType: false,
-                       processData: false,
-                       dataType:"text",
-                       success:function(answer){
+//                     // Actual Resetting
+//                     var reset_data = new FormData();
+//                     reset_data.append("branchcode", branchcode);
+//                     reset_data.append("resetcode", resetcode);
+//                     reset_data.append("resetby", resetby);
+//                     $.ajax({
+//                        url:"ajax/receivable_transaction_post_reset.ajax.php",
+//                        method: "POST",
+//                        data: reset_data,
+//                        cache: false,
+//                        contentType: false,
+//                        processData: false,
+//                        dataType:"text",
+//                        success:function(answer){
 
-                       },
-                       complete: function () {
-                         swal.fire({
-                            title: 'Receivable reset successfully posted!',
-                            type: 'success',
-                            confirmButtonText: 'Got it',
-                            confirmButtonClass: 'btn btn-outline-success',
-                            allowOutsideClick: false,
-                            buttonsStyling: false
-                         })
+//                        },
+//                        complete: function () {
+//                          swal.fire({
+//                             title: 'Receivable reset successfully posted!',
+//                             type: 'success',
+//                             confirmButtonText: 'Got it',
+//                             confirmButtonClass: 'btn btn-outline-success',
+//                             allowOutsideClick: false,
+//                             buttonsStyling: false
+//                          })
 
-                         $('#modal-reset-receivable').modal('hide');
-                         // $(".reset_content").printArea({ mode: 'popup', popClose: true });
-                         window.open("extensions/tcpdf/pdf/resetreceivable.php?resetcode="+resetcode+"&postedby="+postedby+"&branch_name="+branch_name, "_blank");
-                         initialize();
-                       }
-                    });  
-                  }
-                });
-              }else if (result.dismiss === Swal.DismissReason.cancel){
-                $('#reset-override').val('');
-              }
-            });
-          }
-        },
-        error: function () {
-           alert("Oops. Something went wrong!");
-        },
-        complete: function () {
-       }   // (success) get Override key
-     });   // get Override key
-    }      // if (override == '')   
- }  
+//                          $('#modal-reset-receivable').modal('hide');
+//                          // $(".reset_content").printArea({ mode: 'popup', popClose: true });
+//                          window.open("extensions/tcpdf/pdf/resetreceivable.php?resetcode="+resetcode+"&postedby="+postedby+"&branch_name="+branch_name, "_blank");
+//                          initialize();
+//                        }
+//                     });  
+//                   }
+//                 });
+//               }else if (result.dismiss === Swal.DismissReason.cancel){
+//                 $('#reset-override').val('');
+//               }
+//             });
+//           }
+//         },
+//         error: function () {
+//            alert("Oops. Something went wrong!");
+//         },
+//         complete: function () {
+//        }   // (success) get Override key
+//      });   // get Override key
+//     }      // if (override == '')   
+//  }  
 
   // List Payments
   function listPayments(){
@@ -647,6 +646,7 @@ $(function() {
 
             var invno = pay.invno;
             var receiptnum = pay.receiptnum;
+            var salemode = pay.salemode;
             var totalamount = numberWithCommas(pay.netamount);
             var totaladjustment = '0.00';
 
@@ -712,7 +712,7 @@ $(function() {
               $(".enlisted_receivable").append(
                 '<tr>'+               
                   '<td class="del_date" width="11%" style="padding:2px;">'+
-                     '<input type="text" style="padding:2px;padding-right:6px;text-align:right;" class="form-control sdate numeric" invno="'+invno+'" name="sdate" value="'+sdate+'" readonly required>'+
+                     '<input type="text" style="padding:2px;padding-right:6px;text-align:center;" class="form-control sdate numeric" invno="'+invno+'" name="sdate" value="'+sdate+'" readonly required>'+
                   '</td>' +
 
                   '<td class="del_number" width="11%" style="padding:2px;">'+
@@ -720,7 +720,7 @@ $(function() {
                   '</td>' +  
 
                   '<td class="total_amount" width="11%" style="padding:2px;">'+
-                     '<input type="text" style="padding:2px;padding-right:6px;text-align:right;" class="form-control totalamount numeric" invno="'+invno+'" name="totalamount" value="'+totalamount+'" readonly required>'+
+                     '<input type="text" style="padding:2px;padding-right:6px;text-align:center;color:#f0c7fc;" class="form-control totalamount numeric" invno="'+invno+'" name="totalamount" value="'+invno+'" readonly required>'+
                   '</td>' +  
 
                   '<td class="total_adjustment" width="11%" style="padding:2px;">'+

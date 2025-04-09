@@ -4,8 +4,6 @@ require_once "../models/receivable.model.php";
 
 class receivableTransaction{
   public $trans_type; 
-
-  public $branchcode;
   public $paydate;
   public $paymode;
   public $checkdesc;
@@ -21,29 +19,19 @@ class receivableTransaction{
   public function saveReceivableTransaction(){
     $trans_type = $this->trans_type;
 
-  	$branchcode = $this->branchcode;
     $paydate = $this->paydate;
   	$paymode = $this->paymode;
     $checkdesc = $this->checkdesc;
     $bankcode = $this->bankcode;
     $checknum = $this->checknum;
-
-
-
-
     $checkdate = $this->checkdate;
-
-
-
-
     $amount = $this->amount;
     $customercode = $this->customercode;
     $postedby = $this->postedby;
     $postdate = $this->postdate;
     $paymentlist = $this->paymentlist;
 
-    $data = array("branchcode"=>$branchcode,
-                  "paydate"=>$paydate,
+    $data = array("paydate"=>$paydate,
     	            "paymode"=>$paymode,
                   "checkdesc"=>$checkdesc,
                   "bankcode"=>$bankcode,
@@ -57,17 +45,8 @@ class receivableTransaction{
 
     if ($trans_type == 'New'){
       $answer = (new ControllerReceivable)->ctrSaveReceivablePayment($data);
-
-
-
-
       echo $answer;
-      
-      
-      
-
-
-    }else{
+     }else{
       $answer = (new ControllerReceivable)->ctrEditReceivablePayment($data);
     }
 
@@ -77,7 +56,6 @@ class receivableTransaction{
 $processPayment = new receivableTransaction();
 $processPayment -> trans_type = $_POST["trans_type"];
 
-$processPayment -> branchcode = $_POST["branchcode"];
 $processPayment -> paydate = $_POST["paydate"];
 $processPayment -> paymode = $_POST["paymode"];
 $processPayment -> checkdesc = $_POST["checkdesc"];

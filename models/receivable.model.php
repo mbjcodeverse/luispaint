@@ -8,7 +8,7 @@ class ModelReceivable{
         	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->beginTransaction();
 
-            $payment_id = $pdo->prepare("SELECT CONCAT('AR', LPAD((count(id)+1),5,'0')) as gen_id FROM receivable FOR UPDATE");
+            $payment_id = $pdo->prepare("SELECT CONCAT('AR', LPAD((count(id)+1),8,'0')) as gen_id FROM receivable FOR UPDATE");
 
             $payment_id->execute();
 		    $paymentid = $payment_id -> fetchAll(PDO::FETCH_ASSOC);
@@ -17,10 +17,9 @@ class ModelReceivable{
 			$resetted = 'F';
 			$uploaded = 'F';
 			$paycode = $paymentid[0]['gen_id'];
-			$stmt = $pdo->prepare("INSERT INTO receivable(paynum, branchcode, paydate, paymode, checkdesc, bankcode, checknum, checkdate, amount, customercode, postedby, postdate, paystatus, paymentlist, resetted, uploaded) VALUES (:paynum, :branchcode, :paydate, :paymode, :checkdesc, :bankcode, :checknum, :checkdate, :amount, :customercode, :postedby, :postdate, :paystatus, :paymentlist, :resetted, :uploaded)");
+			$stmt = $pdo->prepare("INSERT INTO receivable(paynum, paydate, paymode, checkdesc, bankcode, checknum, checkdate, amount, customercode, postedby, postdate, paystatus, paymentlist, resetted, uploaded) VALUES (:paynum, :paydate, :paymode, :checkdesc, :bankcode, :checknum, :checkdate, :amount, :customercode, :postedby, :postdate, :paystatus, :paymentlist, :resetted, :uploaded)");
 
 			$stmt->bindParam(":paynum", $paymentid[0]['gen_id'], PDO::PARAM_STR);
-			$stmt->bindParam(":branchcode", $data["branchcode"], PDO::PARAM_STR);
 			$stmt->bindParam(":paydate", $data["paydate"], PDO::PARAM_STR);
 			$stmt->bindParam(":paymode", $data["paymode"], PDO::PARAM_STR);
 			$stmt->bindParam(":checkdesc", $data["checkdesc"], PDO::PARAM_STR);
@@ -48,15 +47,7 @@ class ModelReceivable{
 			}
 
 		    $pdo->commit();
-
-
-
-
 		    return $paycode;
-
-
-
-			
 		}catch (Exception $e){
 			$pdo->rollBack();
 			return "error";
@@ -102,7 +93,7 @@ class ModelReceivable{
 		$connection = null;
 		try {
 			$connection = (new Connection)->connect();
-			$stmt = $connection->prepare("SELECT a.sdate, a.receiptnum, a.invno, a.netamount, a.customercode,
+			$stmt = $connection->prepare("SELECT a.sdate, a.receiptnum, a.invno, a.salemode, a.netamount, a.customercode,
 												  SUM(IFNULL(d.amount, 0.00)) AS total_paid 
 										   FROM sales AS a
 										   LEFT JOIN receivableitems AS d ON (a.invno = d.invno)
@@ -271,12 +262,6 @@ SELECT 'B] With Link > Paydate' as detail,b.customercode, b.name, b.creditlimit,
 		$stmt -> close();
 		$stmt = null;
 	}	
-
-
-	
-
-
-
 
 	static public function mdlGetClientPayment($paynum){
 		$stmt = (new Connection)->connect()->prepare("SELECT a.name,b.paydate,b.paymode,IFNULL(d.bankname,'') as bankname,b.checkdesc,b.checknum,b.checkdate,b.amount,b.particulars,b.postdate,b.maturedate,c.invno,e.sdate,c.amount as amount_posted FROM customer as a INNER JOIN receivable as b ON (a.customercode = b.customercode) LEFT JOIN bank as d ON (b.bankcode = d.bankcode) INNER JOIN receivableitems as c ON (b.paynum = c.paynum) INNER JOIN sales as e ON (c.invno = e.invno) WHERE b.paynum = '$paynum'");
