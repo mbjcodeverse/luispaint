@@ -288,7 +288,7 @@ $(function() {
     // --------------------------------------------
     $('#lst_date_range').daterangepicker({
         ranges:{
-          'All'           : [moment('1970-01-01'), moment()],
+          'All'           : [moment('2010-01-01'), moment()],
           'Today'         : [moment(),moment()],
           'Yesterday'     : [moment().subtract(1,'days'), moment().subtract(1,'days')],
           'Last 7 Days'   : [moment().subtract(6,'days'), moment()],

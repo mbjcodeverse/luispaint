@@ -215,10 +215,10 @@
             <tr>
               <th style="min-width: 130px;">Date</th>
               <th style="min-width: 120px;">Receipt #</th>
-              <th style="min-width: 310px;">Client</th>
-              <th style="min-width: 150px;text-align:right;">Amount</th>
-              <th style="min-width: 150px;text-align:right;">Paid</th>
-              <th style="min-width: 150px;text-align:right;">Balance</th>
+              <th style="min-width: 325px;">Client</th>
+              <th style="min-width: 145px;text-align:right;">Amount</th>
+              <th style="min-width: 145px;text-align:right;">Paid</th>
+              <th style="min-width: 145px;text-align:right;">Balance</th>
               <th>Act</th>
             </tr>
           </thead>
