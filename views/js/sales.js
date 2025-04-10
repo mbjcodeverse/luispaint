@@ -304,12 +304,12 @@ $(function() {
         $("#lst-status").val('Sold').trigger('change');
         $("#lst-paystatus").val('<All>').trigger('change');
 
-        $('#lst_date_range').data('daterangepicker').setStartDate(moment('1970-01-01'));
+        $('#lst_date_range').data('daterangepicker').setStartDate(moment('2010-01-01'));
         $('#lst_date_range').data('daterangepicker').setEndDate(moment());
     });
 
     $("#lbl-lst-date-range").click(function(){
-        $('#lst_date_range').data('daterangepicker').setStartDate(moment('1970-01-01'));
+        $('#lst_date_range').data('daterangepicker').setStartDate(moment('2010-01-01'));
         $('#lst_date_range').data('daterangepicker').setEndDate(moment());
         
         slst.search('').draw();

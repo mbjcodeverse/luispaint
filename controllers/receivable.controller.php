@@ -54,8 +54,8 @@ class ControllerReceivable{
 	}	
 
 	// Receivable Report
-	static public function ctrShowReceivableReport($branchcode, $paydate, $customercode, $paymode, $reptype){
-		$answer = (new ModelReceivable)->mdlShowReceivableReport($branchcode, $paydate, $customercode, $paymode, $reptype);
+	static public function ctrShowReceivableReport($paydate, $customercode, $paymode, $reptype){
+		$answer = (new ModelReceivable)->mdlShowReceivableReport($paydate, $customercode, $paymode, $reptype);
 		return $answer;
 	}	
 

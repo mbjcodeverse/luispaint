@@ -207,13 +207,7 @@ class ModelReceivable{
 		$stmt = null;
 	}	
 
-	static public function mdlShowReceivableReport($branchcode, $paydate, $customercode, $paymode, $reptype){
-		if ($branchcode != ''){
-			$branch = " AND (c.branchcode = '$branchcode')";
-		}else{
-			$branch = "";
-		}		
-
+	static public function mdlShowReceivableReport($paydate, $customercode, $paymode, $reptype){
 		if ($customercode != ''){
 			$customer_code = " AND (c.customercode = '$customercode')";
 		}else{
@@ -232,16 +226,16 @@ class ModelReceivable{
 			$date = "";
 		}					
 
-		$whereClause = "WHERE (c.invno != '') AND (c.status = 'Sold')" . $branch . $pay_mode . $date . $customer_code;
+		$whereClause = "WHERE (c.invno != '') AND (c.status = 'Sold')" . $pay_mode . $date . $customer_code;
 
-		$whereClauseA = "WHERE (c.salemode = 'Credit') AND (c.status = 'Sold') AND ((e.paydate <= '$paydate') OR ((e.paydate IS NULL) AND (c.sdate <= '$paydate')))" . $branch . $pay_mode . $customer_code;
+		$whereClauseA = "WHERE (c.status = 'Sold') AND ((e.paydate <= '$paydate') OR ((e.paydate IS NULL) AND (c.sdate <= '$paydate')))" . $pay_mode . $customer_code;
 
-		$whereClauseB = "WHERE (c.salemode = 'Credit')" . $branch . $pay_mode . $customer_code . " AND (c.status = 'Sold') AND (e.paydate > '$paydate') AND (c.sdate <= '$paydate')";
+		$whereClauseB = "WHERE (c.invno != '')" . $pay_mode . $customer_code . " AND (c.status = 'Sold') AND (e.paydate > '$paydate') AND (c.sdate <= '$paydate')";
         
 	    if (($reptype == 1) || ($reptype == 2) || ($reptype == 3)){
-			$stmt = (new Connection)->connect()->prepare("SELECT 'A] With/Without Link <= Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.netamount,e.paydate,IFNULL(SUM(f.amount),0.00) as amount,c.netamount - IFNULL(SUM(f.amount),0.00) AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) LEFT JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseA GROUP BY c.invno HAVING (balance > 0.00)
+			$stmt = (new Connection)->connect()->prepare("SELECT 'A] With/Without Link <= Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.receiptnum,c.netamount,e.paydate,IFNULL(SUM(f.amount),0.00) as amount,c.netamount - IFNULL(SUM(f.amount),0.00) AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) LEFT JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseA GROUP BY c.invno HAVING (balance > 0.00)
 			UNION
-			SELECT 'B] With Link > Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.netamount,NULL as paydate,0.00 as amount,c.netamount AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) INNER JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseB GROUP BY c.invno ORDER BY name,invno,detail");	    	
+			SELECT 'B] With Link > Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.receiptnum,c.netamount,NULL as paydate,0.00 as amount,c.netamount AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) INNER JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseB GROUP BY c.invno ORDER BY name,invno,detail");	    	
 	    } elseif ($reptype == 3){
 			$stmt = (new Connection)->connect()->prepare("SELECT c.id,c.sdate,c.invno, c.status,IFNULL(e.name,'') as name,IFNULL(f.brandname,'') as brandname,b.prodname,d.qty,d.price,SUM(d.tamount) as tamount FROM category as a INNER JOIN masterproducts as b ON (a.categorycode = b.categorycode) LEFT JOIN brand as f ON (b.brandcode = f.brandcode) INNER JOIN salesitems AS d ON (b.prodid = d.prodid) INNER JOIN sales as c ON (c.invno = d.invno) LEFT JOIN customer as e ON (c.customercode = e.customercode) $whereClause GROUP BY c.id,b.prodname WITH ROLLUP");
 		}

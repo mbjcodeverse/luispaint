@@ -188,8 +188,8 @@ $(function() {
                 alert("Oops. Something went wrong!");
              },
              complete: function () {
-                // let pay_num = $("#paynum").val(); 
-                // window.open("extensions/tcpdf/pdf/paymentdetails.php?paynum="+pay_num+"&postedby="+postedby, "_blank");
+                let pay_num = $("#paynum").val(); 
+                window.open("extensions/tcpdf/pdf/paymentdetails.php?paynum="+pay_num+"&postedby="+postedby, "_blank");
 
                 swal.fire({
                     title: 'Receivable transaction successfully saved!',

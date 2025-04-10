@@ -52,11 +52,11 @@ public function getClientPayment(){
   $header = <<<EOF
   <table>
     <tr>
-      <td style="width:540px;text-align:center;font-size:1.2em;font-weight:bold;">BACOLOD LUIS PAINT</td> 
+      <td style="width:540px;text-align:center;font-size:1.2em;font-weight:bold;">BACOLOD LUIS PAINT CENTER</td> 
     </tr>
 
     <tr>
-      <td style="width:540px;text-align:center;font-size:9px;">Capitol Shopping Center, Tindalo Ave., Bacolod City</td> 
+      <td style="width:540px;text-align:center;font-size:8px;">Capitol Shopping Center, Tindalo Ave., Brgy. Villamonte</td> 
     </tr>  
 
     <tr>
@@ -64,9 +64,9 @@ public function getClientPayment(){
     </tr>
 
     <tr>
-      <td style="width:434px;"></td>
+      <td style="width:426px;"></td>
       <td style="width:50px;text-align:right;font-size:10px;">AR #:</td>
-      <td style="width:53px;text-align:left;font-size:10px;">&nbsp;$paynum</td> 
+      <td style="width:63px;text-align:left;font-size:10px;">&nbsp;$paynum</td> 
     </tr>    
 
     <tr>
