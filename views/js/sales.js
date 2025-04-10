@@ -309,6 +309,7 @@ $(function() {
     });
 
     $("#lbl-lst-date-range").click(function(){
+        alert("mom");
         $('#lst_date_range').data('daterangepicker').setStartDate(moment('2010-01-01'));
         $('#lst_date_range').data('daterangepicker').setEndDate(moment());
         
