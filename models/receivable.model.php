@@ -258,7 +258,7 @@ SELECT 'B] With Link > Paydate' as detail,b.customercode, b.name, b.creditlimit,
 	}	
 
 	static public function mdlGetClientPayment($paynum){
-		$stmt = (new Connection)->connect()->prepare("SELECT a.name,b.paydate,b.paymode,IFNULL(d.bankname,'') as bankname,b.checkdesc,b.checknum,b.checkdate,b.amount,b.particulars,b.postdate,b.maturedate,c.invno,e.sdate,c.amount as amount_posted FROM customer as a INNER JOIN receivable as b ON (a.customercode = b.customercode) LEFT JOIN bank as d ON (b.bankcode = d.bankcode) INNER JOIN receivableitems as c ON (b.paynum = c.paynum) INNER JOIN sales as e ON (c.invno = e.invno) WHERE b.paynum = '$paynum'");
+		$stmt = (new Connection)->connect()->prepare("SELECT a.name,b.paydate,b.paymode,IFNULL(d.bankname,'') as bankname,b.checkdesc,b.checknum,b.checkdate,b.amount,b.particulars,b.postdate,b.maturedate,c.invno,e.sdate,e.receiptnum,c.amount as amount_posted FROM customer as a INNER JOIN receivable as b ON (a.customercode = b.customercode) LEFT JOIN bank as d ON (b.bankcode = d.bankcode) INNER JOIN receivableitems as c ON (b.paynum = c.paynum) INNER JOIN sales as e ON (c.invno = e.invno) WHERE b.paynum = '$paynum'");
 		$stmt -> execute();
 		return $stmt -> fetchAll();
 		$stmt -> close();

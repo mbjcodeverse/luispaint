@@ -86,7 +86,7 @@ public function getClientPayment(){
         <td style="border: 1px solid black;width:50px;text-align:left;font-size:8px;">&nbsp; Chk Date</td>
         <td style="border: 1px solid black;width:60px;text-align:left;font-size:8px;">&nbsp; Chk #</td>
         <td style="border: 1px solid black;width:50px;text-align:left;font-size:8px;">&nbsp; Chk Desc</td>   
-        <td style="border: 1px solid black;width:65px;text-align:left;font-size:8px;">&nbsp; Inv #</td>    
+        <td style="border: 1px solid black;width:65px;text-align:left;font-size:8px;">&nbsp; Receipt #</td>    
         <td style="border: 1px solid black;width:50px;text-align:left;font-size:8px;">&nbsp; Inv Date</td>
         <td style="border: 1px solid black;width:50px;text-align:right;font-size:8px;">Amount &nbsp;&nbsp;</td>      
       </tr>                          
@@ -123,6 +123,7 @@ EOF;
     }
 
     $invno = $value["invno"];
+    $receiptnum = $value["receiptnum"];
     $sale_date = $value["sdate"];
     $sdate = substr($sale_date,5,2)."/".substr($sale_date,8,2)."/".substr($sale_date,0,4);
     $amount_posted = number_format($value["amount_posted"],2);
@@ -141,7 +142,7 @@ EOF;
           <td style="width:50px;text-align:right;font-size:8px;border-right: 1px solid black;">$checkdate</td>
           <td style="width:60px;text-align:left;font-size:8px;border-right: 1px solid black;">&nbsp;$checknum</td>
           <td style="width:50px;text-align:left;font-size:8px;border-right: 1px solid black;">&nbsp;$checkdesc</td>
-          <td style="width:65px;text-align:left;font-size:8px;border-right: 1px solid black;">&nbsp;$invno</td>
+          <td style="width:65px;text-align:left;font-size:8px;border-right: 1px solid black;">&nbsp;$receiptnum</td>
           <td style="width:50px;text-align:right;font-size:8px;border-right: 1px solid black;">$sdate</td>
           <td style="width:50px;text-align:right;font-size:8px;border-right: 1px solid black;">$amount_posted</td>
         </tr>                 
