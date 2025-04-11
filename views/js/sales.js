@@ -300,7 +300,8 @@ $(function() {
           'Today'         : [moment(),moment()],
           'Yesterday'     : [moment().subtract(1,'days'), moment().subtract(1,'days')],
           'Last 7 Days'   : [moment().subtract(6,'days'), moment()],
-          'This Month'    : [moment().startOf('month'), moment().endOf('month')]
+          'This Month'    : [moment().startOf('month'), moment().endOf('month')],
+          'This Year'     : [moment().startOf('year'), moment().endOf('year')]
         }
     });
 
