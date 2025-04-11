@@ -258,5 +258,5 @@
 </div>
 
 <!-- <script src="views/js/sales.js"></script> -->
-<script src="views/js/sales.js?v=1.0.0"></script>
+<script src="views/js/sales.js?v=1.0.1"></script>
 
