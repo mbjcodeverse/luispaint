@@ -132,11 +132,60 @@ class ModelSale{
 
 		$whereClause = "WHERE (b.invno != '')" . $customer_code . $salemode . $dates . $status;
 
-		$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,a.customercode,a.name,b.netamount,
+		$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,b.salemode,a.customercode,a.name,b.netamount,
                                                       IFNULL(SUM(c.amount),0.00) AS paid,(b.netamount - IFNULL(SUM(c.amount),0.00)) AS balance
                                                       FROM customer AS a INNER JOIN sales AS b ON (a.customercode = b.customercode)
                                                       LEFT JOIN receivableitems AS c ON (b.invno = c.invno) $whereClause GROUP BY b.invno $pay_status
                                                       ORDER BY b.sdate");
+
+		$stmt -> execute();
+		return $stmt -> fetchAll();
+		$stmt -> close();
+		$stmt = null;
+	}
+	
+    static public function mdlSalesReport($reptype, $customercode, $salemode, $start_date, $end_date, $status, $paystatus){
+		if ($customercode != ''){
+			$customer_code = " AND (a.customercode = '$customercode')";
+		}else{
+			$customer_code = "";
+		}
+
+		if ($salemode != ''){
+            $salemode = " AND (b.salemode = '$salemode')";
+		}else{
+			$salemode = "";
+		}
+
+		if(!empty($end_date)){
+			$dates = " AND (b.sdate BETWEEN '$start_date' AND '$end_date')";
+		}else{
+			$dates = "";
+		}	
+        
+        if ($status != ''){
+            $status = " AND (b.status = '$status')";
+		}else{
+			$status = "";
+		}
+
+        if ($paystatus == '<All>'){
+            $pay_status = '';
+        }elseif ($paystatus == 'Paid'){
+            $pay_status = 'HAVING balance = 0.00';
+        }else{
+            $pay_status = 'HAVING balance > 0.00';
+        }
+
+		$whereClause = "WHERE (b.invno != '')" . $customer_code . $salemode . $dates . $status;
+
+		if ($reptype == 1){
+			$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,b.salemode,a.customercode,a.name,b.netamount,
+														IFNULL(SUM(c.amount),0.00) AS paid,(b.netamount - IFNULL(SUM(c.amount),0.00)) AS balance
+														FROM customer AS a INNER JOIN sales AS b ON (a.customercode = b.customercode)
+														LEFT JOIN receivableitems AS c ON (b.invno = c.invno) $whereClause GROUP BY b.invno $pay_status
+														ORDER BY b.sdate,a.name");
+		}
 
 		$stmt -> execute();
 		return $stmt -> fetchAll();

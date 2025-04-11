@@ -89,7 +89,10 @@
                   <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-stack"></i> <span>Reports</span></a>
                     <ul class="nav nav-group-sub" data-submenu-title="Text editors">';
-                      // if($_SESSION["po"] == 1){   
+                      // if($_SESSION["po"] == 1){  
+                        echo '
+                            <li class="nav-item"><a href="salesreport" class="nav-link">Invoices</a></li>  
+                        '; 
                         echo '
                             <li class="nav-item"><a href="receivablereport" class="nav-link">Receivable</a></li>  
                         ';  

@@ -12,7 +12,7 @@
               <div class="col-sm-4 form-group">
               </div>              
 
-              <div class="col-sm-2 form-group" style="padding: 0px;padding-top:8px;padding-left:7px;margin:0;">
+              <div class="col-sm-3 form-group" style="padding: 0px;padding-top:8px;padding-left:7px;margin:0;">
                 <button type="button" class="btn btn-light" disabled name="btn-print-report" id="btn-print-report" style="float:right;margin-right:19px;"><i class="icon-printer"></i>&nbsp;&nbsp;Print</button>
                 <button type="button" class="btn btn-light" disabled name="btn-print-report" id="btn-export" style="float:right;margin-right:19px;"><i class="icon-printer"></i>&nbsp;&nbsp;Export</button>
               </div>    
@@ -49,8 +49,9 @@
                 </div>
 
                 <div class="col-sm-2 form-group">
-                  <label for="lst-paymode" id="lbl-lst-paymode" style="color:aqua;">= &gt; Mode</label>
-                  <select data-placeholder="< Select Mode >" class="form-control select" data-fouc id="lst-paymode" name="lst-paymode" required>
+                  <!-- <label for="lst-paymode" id="lbl-lst-paymode" style="color:aqua;">= &gt; Mode</label> -->
+                  <label for="lst-paymode" id="lbl-lst-paymode">Mode</label>
+                  <select data-placeholder="< Select Mode >" class="form-control select" data-fouc id="lst-paymode" name="lst-paymode" required disabled>
                     <option></option>
                     <option value="Cash">Cash</option>
                     <option value="Check">Check</option>

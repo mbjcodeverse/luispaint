@@ -76,6 +76,15 @@
 
         <div class="clearfix">
           <span class="float-left">
+            <div class="custom-control custom-checkbox custom-control-inline" style="margin-top:10px;color:#cafa9d;">
+              <input type="checkbox" class="custom-control-input" id="chk-lockclient" name="chk-lockclient" value="0">
+              <label class="custom-control-label" for="chk-lockclient">Lock Client</label>
+            </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline" style="margin-top:10px;color:#f59471;">
+              <input type="checkbox" class="custom-control-input" id="chk-lockdate" name="chk-lockdate" value="0">
+              <label class="custom-control-label" for="chk-lockdate">Lock Date</label>
+            </div>
           </span>
 
           <input type="text" name="trans_type" id="trans_type" value="New" style="visibility:hidden;" required>
@@ -146,7 +155,8 @@
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content" style="background-color: #343f53;">
       <div class="modal-header">
-        <h5 class="modal-title profile-name"><i class="icon-menu7 mr-2"></i> &nbsp; SALES LIST INFORMATION</h5>
+        <h5 class="modal-title profile-name" style="margin-top:-3px;"><i class="icon-menu7 mr-2"></i> &nbsp; SALES LIST INFORMATION&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+        <!-- <button type="button" class="btn btn-light btn-sm" id="btn-print" style="margin-top:-5px;color:#f3fcb6;border-radius: 12px;"><i class="icon-printer"></i> &nbsp;Print Invoices</button> -->
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -156,7 +166,7 @@
           <div class="row" pb-0 style="margin:10px;margin-bottom: -25px;">  
             <div class="col-sm-3 form-group">
                 <label for="lst-customercode" id="lbl-lst-customercode" style="color:aqua;">= &gt; Client</label>
-                <select data-placeholder="< Select Client >" class="form-control select-search" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" id="lst-customercode" name="lst-customercode">
+                <select class="form-control select-search" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" id="lst-customercode" name="lst-customercode">
                     <option value="" selected hidden disabled>&lt;&nbsp;Select Client&nbsp;&gt;</option>
                     <?php
                         $customers = (new ControllerClients)->ctrShowCustomerList();

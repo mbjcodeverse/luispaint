@@ -7,15 +7,25 @@ $(function() {
 
     // select with search
     $(".select-search").select2(); 
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = today.getFullYear();
+
+    var currentDate = mm + '/' + dd + '/' + yyyy;
+
+    // Assign the date to the input field
+    $('#date-paydate').val(currentDate);
     
     // Clearing Customer selection
     $("#lbl-lst-customercode").click(function(){
        $("#lst-customercode").val('').trigger('change');
     });
  
-    $("#lbl-lst-paymode").click(function(){
-       $("#lst-paymode").val('').trigger('change');
-    });    
+    // $("#lbl-lst-paymode").click(function(){
+    //    $("#lst-paymode").val('').trigger('change');
+    // });    
  
     $('#date-paydate, #lst-customercode, #lst-paymode, #lst-reptype').on("change", function(){
        $("#btn-print-report").prop('disabled', false);

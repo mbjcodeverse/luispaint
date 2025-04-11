@@ -15,6 +15,11 @@ class ControllerSale{
 		return $answer;
 	}
 
+	static public function ctrSalesReport($reptype, $customercode, $salemode, $start_date, $end_date, $status, $paystatus){
+		$answer = (new ModelSale)->mdlSalesReport($reptype, $customercode, $salemode, $start_date, $end_date, $status, $paystatus);
+		return $answer;
+	}
+
     static public function ctrShowSale($invno){
 		$answer = (new ModelSale)->mdlShowSale($invno);
 		return $answer;

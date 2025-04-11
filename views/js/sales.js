@@ -4,7 +4,6 @@ if (!$.fn.DataTable.isDataTable('.salesListTable')) {
         processing: true,
         autoWidth: true,
         scrollY: 360,
-        ordering: false,
         pageLength: 25,
         lengthMenu: [[25, 50], [25, 50]],
         dom: '<"datatable-header"><"extra-row"> <"datatable-scroll"t><"datatable-footer"fp>',
@@ -146,8 +145,17 @@ $(function() {
 
     function initialize(){
         $("#btn-save").prop('disabled', false);
-        $("#sel-customercode").val('').trigger('change');
-        $("#date-sdate").val('');
+
+        if (!$('#chk-lockclient').is(':checked')) {
+            $("#sel-customercode").val('').trigger('change');
+        }
+
+        if (!$('#chk-lockdate').is(':checked')) {
+            $("#date-sdate").val('');
+        }
+
+        // $("#sel-customercode").val('').trigger('change');
+        // $("#date-sdate").val('');
         $("#txt-status").val('Sold');
         $("#txt-invno").val('');
         $("#txt-receiptnum").val('');
@@ -408,6 +416,28 @@ $(function() {
             }
         });
     });
+
+    // $("#btn-print").click(function(){
+    //     let customercode = $("#lst-customercode").val();
+    //     if (customercode == null){
+    //         customercode = '';
+    //     }
+    //     let salemode = $("#lst-salemode").val();
+    //     let status = $("#lst-status").val();
+        
+    //     var date_range = $("#lst_date_range").val();
+    //     if (date_range != ''){
+    //         var start_date = date_range.substring(6, 10) + '-' + date_range.substring(0, 2) + '-' + date_range.substring(3, 5);
+    //         var end_date = date_range.substring(19, 23) + '-' + date_range.substring(13, 15) + '-' + date_range.substring(16, 18);
+    //     } else {
+    //         var start_date = '';
+    //         var end_date = '';
+    //     }
+    //     let paystatus = $("#lst-paystatus").val();
+    //     alert(customercode);
+        
+    //     window.open("extensions/tcpdf/pdf/salesprint.php?customercode="+customercode+"&salemode="+salemode+"&status="+status+"&start_date="+start_date+"&end_date="+end_date, "_blank");
+    // }); 
     
     // Ensure that padding is applied whenever DataTable redraws (e.g., page switch or filtering)
     $(".salesListTable").on("draw.dt", function () {
