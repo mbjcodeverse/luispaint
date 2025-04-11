@@ -75,4 +75,5 @@
   </form>
 </div>
 
-<script src="views/js/receivablereport.js"></script>
+<!-- <script src="views/js/receivablereport.js"></script> -->
+<script src="views/js/receivablereport.js?v=1.0.0"></script>
