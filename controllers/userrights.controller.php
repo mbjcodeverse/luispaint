@@ -55,17 +55,21 @@ class ControllerUserRights{
 					$_SESSION["photo"] = $answer["photo"];
 					$_SESSION["dashboard"] = $answer["dashboard"];
 
-					if ($_SESSION["dashboard"] == "Full"){
-						$_SESSION["show_dashboard"] = true;
-						echo '<script>
-								window.location = "home";
-							  </script>';
-					}else{
-						$_SESSION["show_dashboard"] = false;
-						echo '<script>
-								window.location = "default";
-							  </script>';
-					}
+					$empid = $_SESSION["empid"];
+					$answer = (new ModelUserRights)->mdlAddLogin($empid);
+				    if ($answer == 'ok') {
+						if ($_SESSION["dashboard"] == "Full"){
+							$_SESSION["show_dashboard"] = true;
+							echo '<script>
+									window.location = "home";
+								</script>';
+						}else{
+							$_SESSION["show_dashboard"] = false;
+							echo '<script>
+									window.location = "default";
+								</script>';
+						}
+				    }
 				}else{
 					echo '<br><div style="text-align:center;" class="alert alert-danger">User or password incorrect</div>';
 				}
@@ -77,4 +81,9 @@ class ControllerUserRights{
 		$answer = (new ModelUserRights)->mdlGetUserLogin($username, $upassword);
 		return $answer;
 	}  
+
+	static public function ctrShowLoginReport($start_date, $end_date){
+		$answer = (new ModelUserRights)->mdlShowLoginReport($start_date, $end_date);
+		return $answer;
+	}
 }

@@ -101,11 +101,11 @@
                         ';
                       // }
 
-                      // if($_SESSION["inc"] == 1){     
-                        // echo '
-                        //      <li class="nav-item"><a href="receivablereport" class="nav-link">Receivable</a></li>  
-                        // ';
-                      // }      
+                      if($_SESSION["userid"] == "U0001"){     
+                        echo '
+                             <li class="nav-item"><a href="loginreport" class="nav-link">Login Tracker</a></li>  
+                        ';
+                      }      
 
                       // echo '
                       //        <li class="nav-item"><a href="incomingreport" class="nav-link">Incoming Stocks</a></li>  

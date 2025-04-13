@@ -113,6 +113,7 @@
             $_GET["route"] == 'salesreport' ||
             $_GET["route"] == 'receivablereport' ||
             $_GET["route"] == 'collectionreport' ||
+            $_GET["route"] == 'loginreport' ||
             $_GET["route"] == 'bank' ||
             $_GET["route"] == 'access' ||
             $_GET["route"] == 'resetloginaccount' ||
