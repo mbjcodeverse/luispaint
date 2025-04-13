@@ -85,6 +85,11 @@
               <input type="checkbox" class="custom-control-input" id="chk-lockdate" name="chk-lockdate" value="0">
               <label class="custom-control-label" for="chk-lockdate">Lock Date</label>
             </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline" style="margin-top:10px;color:#f59471;">
+              <input type="checkbox" class="custom-control-input" id="chk-locksalemode" name="chk-locksalemode" value="0">
+              <label class="custom-control-label" for="chk-locksalemode">Lock Mode</label>
+            </div>
           </span>
 
           <input type="text" name="trans_type" id="trans_type" value="New" style="visibility:hidden;" required>
@@ -96,6 +101,8 @@
             <button type="button" class="btn btn-light btn-lg" id="btn-search" data-toggle="modal" data-target="#modal-search-sales"><i class="icon-search4 mr-2"></i> Search</button>
            
             <button type="button" class="btn btn-light btn-lg" id="btn-save"><i class="icon-floppy-disk mr-2"></i> Save</button>
+
+            <button type="button" class="btn btn-light btn-lg" id="btn-void" style="color:#fc6fcf;"><i class="icon-database-remove mr-2"></i> Void</button>
           </span>
         </div>     
       </div>  <!-- card body -->

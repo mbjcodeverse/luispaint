@@ -125,6 +125,24 @@ $(function() {
         }
     });
 
+    $("#btn-void").click(function(){
+        swal.fire({
+            title: 'Do you want to void sales transaction?',
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, save it!',
+            cancelButtonText: 'No',
+            confirmButtonClass: 'btn btn-outline-success',
+            cancelButtonClass: 'btn btn-outline-danger',
+            allowOutsideClick: false,
+            buttonsStyling: false
+        }).then(function(result) {
+             if(result.value) {  
+               
+             }
+        }); 	 
+    });
+
     function new_sale(){
         swal.fire({
             title: 'Do you want to post new sales transaction?',
@@ -154,15 +172,21 @@ $(function() {
             $("#date-sdate").val('');
         }
 
+        if (!$('#chk-locksalemode').is(':checked')) {
+            $("#sel-salemode").val('').trigger('change');
+        }
+
         // $("#sel-customercode").val('').trigger('change');
         // $("#date-sdate").val('');
         $("#txt-status").val('Sold');
         $("#txt-invno").val('');
         $("#txt-receiptnum").val('');
-        $("#sel-salemode").val('').trigger('change');
         $("#num-netamount").val('0.00');
         $("#txt-remarks").val('');
+
         $("#trans_type").val("New");
+        // $('#btn-void').prop('disabled', true);
+        $('#btn-void').hide();
     }
 
     function postsales(){
@@ -434,7 +458,7 @@ $(function() {
     //         var start_date = '';
     //         var end_date = '';
     //     }
-    //     let paystatus = $("#lst-paystatus").val();
+    //     // let paystatus = $("#lst-paystatus").val();
     //     alert(customercode);
         
     //     window.open("extensions/tcpdf/pdf/salesprint.php?customercode="+customercode+"&salemode="+salemode+"&status="+status+"&start_date="+start_date+"&end_date="+end_date, "_blank");
@@ -478,6 +502,9 @@ $(function() {
                 $("#sel-salemode").val(answer["salemode"]).trigger('change');
                 $("#num-netamount").val(numberWithCommas(answer["netamount"]));
                 $("#txt-remarks").val(answer["remarks"]);
+
+                // $('#btn-void').prop('disabled', false);
+                $('#btn-void').show();
             }
         })
     }); 

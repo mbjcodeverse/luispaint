@@ -24,4 +24,9 @@ class ControllerSale{
 		$answer = (new ModelSale)->mdlShowSale($invno);
 		return $answer;
 	}
+
+	static public function ctrPrintSales($reptype, $customercode, $salemode, $status, $start_date, $end_date){
+		$answer = (new ModelSale)->mdlPrintSales($reptype, $customercode, $salemode, $status, $start_date, $end_date);
+		return $answer;
+	}
 }

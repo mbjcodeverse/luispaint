@@ -132,7 +132,29 @@ $(function() {
 
     $("#btn-export").click(function(){
         exportToExcel();
-    });   
+    });
+    
+    $("#btn-print-report").click(function(){
+        let reptype = $("#lst-reptype").val();
+        let customercode = $("#lst-customercode").val();
+        if (customercode == null){
+            customercode = '';
+        }
+        let salemode = $("#lst-salemode").val();
+        let status = 'Sold';
+        
+        var date_range = $("#lst_date_range").val();
+        if (date_range != ''){
+            var start_date = date_range.substring(6, 10) + '-' + date_range.substring(0, 2) + '-' + date_range.substring(3, 5);
+            var end_date = date_range.substring(19, 23) + '-' + date_range.substring(13, 15) + '-' + date_range.substring(16, 18);
+        } else {
+            var start_date = '';
+            var end_date = '';
+        }
+        let generatedby = $("#tns-generatedby").val();
+        
+        window.open("extensions/tcpdf/pdf/salesprint.php?reptype="+reptype+"&customercode="+customercode+"&salemode="+salemode+"&status="+status+"&start_date="+start_date+"&end_date="+end_date+"&generatedby="+generatedby, "_blank");
+    }); 
 
     function exportToExcel() {
         var location = 'data:application/vnd.ms-excel;base64,';
