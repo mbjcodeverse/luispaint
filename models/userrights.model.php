@@ -170,7 +170,7 @@ class ModelUserRights{
 			$dates = "";
 		}					
 
-		$whereClause = "WHERE (c.empid != '')" . $dates;
+		$whereClause = "WHERE (c.empid != 'EM00001')" . $dates;
         
 		$stmt = (new Connection)->connect()->prepare("SELECT c.cdate,c.ctime,c.cday,CONCAT(a.fname,' ',a.lname) AS full_name FROM employees AS a INNER JOIN logintracker AS c ON (a.empid = c.empid) $whereClause ORDER BY c.cdate,c.id");
 
