@@ -10,7 +10,7 @@
               <img src="views/global_assets/images/blplogo.png" height="120">
               <!-- <h5 class="mb-0 paint-text" style="font-size: 2rem; font-weight: 600; color: #f8f9fa;">BACOLOD LUIS PAINT</h5> -->
               <h5 class="mb-0" style="font-size: 2rem; font-weight: 600; color: transparent; background-image: linear-gradient(45deg, #f7e1ff, #b3f0ff, #f0f8d2, #ffebcc, #f7f7f7); background-clip: text; -webkit-background-clip: text;">BACOLOD LUIS PAINT</h5>
-              <span class="d-block text-muted" style="font-size: 1.2rem; color: #9bff6e;">Enter your credentials below</span>
+              <span class="d-block text-muted" style="font-size: 1.2rem; color: #9bff6e;">Enter your account below</span>
             </div>
             <div class="form-group form-group-feedback form-group-feedback-left" style="margin-bottom: 20px; position: relative;">
               <input type="text" class="form-control" placeholder="Username" name="loginUser" id="loginUser" autocomplete="none" value="" required style="padding-left: 40px; padding-right: 20px; font-size: 1.2rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
