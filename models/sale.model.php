@@ -130,7 +130,7 @@ class ModelSale{
             $pay_status = 'HAVING balance > 0.00';
         }
 
-		$whereClause = "WHERE (b.invno != '')" . $customer_code . $salemode . $dates . $status;
+		$whereClause = "WHERE (b.status != 'Void')" . $customer_code . $salemode . $dates . $status;
 
 		$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,b.salemode,a.customercode,a.name,b.netamount,
                                                       IFNULL(SUM(c.amount),0.00) AS paid,(b.netamount - IFNULL(SUM(c.amount),0.00)) AS balance
@@ -178,7 +178,7 @@ class ModelSale{
             $pay_status = 'HAVING balance > 0.00';
         }
 
-		$whereClause = "WHERE (b.invno != '')" . $customer_code . $salemode . $dates . $status;
+		$whereClause = "WHERE (b.status != 'Void')" . $customer_code . $salemode . $dates . $status;
 
 		if ($reptype == 1){
 			$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,b.salemode,a.customercode,a.name,b.netamount,
@@ -225,7 +225,7 @@ class ModelSale{
 			$status = "";
 		}
 
-		$whereClause = "WHERE (b.invno != '')" . $customer_code . $salemode . $dates . $status;
+		$whereClause = "WHERE (b.status != 'Void')" . $customer_code . $salemode . $dates . $status;
 
 		if ($reptype == 1){
 			$stmt = (new Connection)->connect()->prepare("SELECT b.invno,b.sdate,b.receiptnum,b.salemode,a.customercode,a.name,b.netamount FROM customer AS a INNER JOIN sales AS b ON (a.customercode = b.customercode) $whereClause ORDER BY b.sdate,a.name");
@@ -236,6 +236,45 @@ class ModelSale{
 		$stmt -> close();
 		$stmt = null;
 	}	
+
+	static public function mdlGetReceiptNumber($receiptnum){
+		$stmt = (new Connection)->connect()->prepare("SELECT * FROM sales WHERE receiptnum = '$receiptnum'");
+		$stmt -> execute();
+		return $stmt -> fetch();
+	}
+
+	static public function mdlVoidSale($invno){
+		$db = new Connection();
+		$pdo = $db->connect();
+        try{
+        	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->beginTransaction();
+
+			$inv_no = $invno;
+			$sale_status = 'Void';
+
+			$stmt = $pdo->prepare("UPDATE sales
+                                          SET status = :status
+                                          WHERE invno = :invno");
+
+            $stmt->bindParam(":invno", $inv_no, PDO::PARAM_STR);
+			$stmt->bindParam(":status", $sale_status, PDO::PARAM_STR);
+			$stmt->execute();		
+
+		    $pdo->commit();
+		    return "ok";
+		}catch (Exception $e){
+			$pdo->rollBack();
+			return "error";
+		}finally {
+            if ($stmt !== null) {
+                $stmt = null; 
+            }
+            if ($pdo !== null) {
+                $pdo = null;
+            }
+        }	      
+	}    	
 }
 
 

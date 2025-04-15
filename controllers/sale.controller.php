@@ -29,4 +29,14 @@ class ControllerSale{
 		$answer = (new ModelSale)->mdlPrintSales($reptype, $customercode, $salemode, $status, $start_date, $end_date);
 		return $answer;
 	}
+
+	static public function ctrGetReceiptNumber($receiptnum){
+		$answer = (new ModelSale)->mdlGetReceiptNumber($receiptnum);
+		return $answer;
+	}
+
+	static public function ctrVoidSale($invno){
+		$answer = (new ModelSale)->mdlVoidSale($invno);
+		return $answer;
+	}	
 }

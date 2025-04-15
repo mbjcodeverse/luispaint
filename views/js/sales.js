@@ -127,20 +127,83 @@ $(function() {
 
     $("#btn-void").click(function(){
         swal.fire({
-            title: 'Do you want to void sales transaction?',
+            title: 'Do you want to VOID sales invoice?',
             type: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Yes, save it!',
+            confirmButtonText: 'Yes, Void!',
             cancelButtonText: 'No',
             confirmButtonClass: 'btn btn-outline-success',
             cancelButtonClass: 'btn btn-outline-danger',
             allowOutsideClick: false,
             buttonsStyling: false
         }).then(function(result) {
-             if(result.value) {  
-               
-             }
-        }); 	 
+            if(result.value) {  
+                var invno = $("#txt-invno").val();
+                var void_invno = new FormData();
+                void_invno.append("invno", invno);
+                $.ajax({
+                    url:"ajax/sales_void.ajax.php",
+                    method: "POST",
+                    data: void_invno,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    dataType:"text",
+                    success:function(answer){
+                        if (answer && answer.trim() !== ''){
+                            swal.fire({
+                                title: 'Sales invoice successfully VOIDED!.',
+                                type: 'success',
+                                confirmButtonText: 'Got it!',
+                                confirmButtonClass: 'btn btn-outline-success',
+                                allowOutsideClick: false,
+                                buttonsStyling: false
+                            }).then(function(result){
+                                if(result.value) {              
+                                    initialize();
+                                }
+                            })
+                        } 
+                    }
+                });    
+            }
+        });        
+    });
+
+    $('#txt-receiptnum').on('blur', function () {
+        var receiptnum = $(this).val().trim();
+        var current_receipt = $("#current_receipt").val();
+        if (receiptnum !== '') {
+            var rec = new FormData();
+            rec.append("receiptnum", receiptnum);
+            $.ajax({
+                url:"ajax/sale_check_receiptnum.ajax.php",
+                method: "POST",
+                data: rec,
+                cache: false,
+                contentType: false,
+                processData: false,
+                async: false,
+                dataType:"text",
+                success:function(answer){
+                    if (answer && answer.trim() !== '' && receiptnum != current_receipt) {
+                        swal.fire({
+                            title: 'Duplicate receipt # found! Change your entry.',
+                            type: 'warning',
+                            confirmButtonText: 'Got it!',
+                            confirmButtonClass: 'btn btn-outline-success',
+                            allowOutsideClick: false,
+                            buttonsStyling: false
+                        }).then(function(result){
+                            if(result.value) {              
+                                $('#txt-receiptnum').val('').focus();
+                            }
+                        })
+                    }   
+                }
+            });    
+        }
     });
 
     function new_sale(){
@@ -185,6 +248,7 @@ $(function() {
         $("#txt-remarks").val('');
 
         $("#trans_type").val("New");
+        $("#current_receipt").val("");
         // $('#btn-void').prop('disabled', true);
         $('#btn-void').hide();
     }
@@ -504,6 +568,7 @@ $(function() {
                 $("#txt-remarks").val(answer["remarks"]);
 
                 // $('#btn-void').prop('disabled', false);
+                $("#current_receipt").val(answer["receiptnum"]);
                 $('#btn-void').show();
             }
         })
