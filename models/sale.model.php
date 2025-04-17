@@ -243,6 +243,7 @@ class ModelSale{
 		return $stmt -> fetch();
 	}
 
+	
 	static public function mdlVoidSale($invno){
 		$db = new Connection();
 		$pdo = $db->connect();

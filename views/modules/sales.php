@@ -265,6 +265,6 @@
   </div>
 </div>
 
-<!-- <script src="views/js/sales.js"></script> -->
-<script src="views/js/sales.js?v=1.0.2"></script>
+<script src="views/js/sales.js"></script>
+<!-- <script src="views/js/sales.js?v=1.0.2"></script> -->
 

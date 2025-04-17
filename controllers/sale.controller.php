@@ -35,6 +35,7 @@ class ControllerSale{
 		return $answer;
 	}
 
+	
 	static public function ctrVoidSale($invno){
 		$answer = (new ModelSale)->mdlVoidSale($invno);
 		return $answer;
