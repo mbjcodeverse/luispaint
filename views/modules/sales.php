@@ -8,7 +8,7 @@
 
         <input type="hidden" name="txt-postedby" id="txt-postedby" value="<?php echo $_SESSION["empid"];?>">
         <input type="hidden" name="trans_type" id="trans_type" value="New" required>
-        <input type="text" name="current_receipt" id="current_receipt" value="">
+        <input type="hidden" name="current_receipt" id="current_receipt" value="">
 
         <div class="header-elements">
           <div class="list-icons">

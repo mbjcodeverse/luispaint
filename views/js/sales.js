@@ -173,7 +173,7 @@ $(function() {
 
     $('#txt-receiptnum').on('blur', function () {
         var receiptnum = $(this).val().trim();
-        alert(receiptnum);
+        // alert(receiptnum);
         var current_receipt = $("#current_receipt").val();
         if (receiptnum !== '') {
             var rec = new FormData();
