@@ -73,19 +73,41 @@ class ModelReceivable{
 		$stmt = null;		
 	}
 
-	// static public function mdlShowCustomerReceivableList($customercode){
-	// 	$stmt = (new Connection)->connect()->prepare("SELECT a.sdate,a.invno,a.netamount,a.customercode,SUM(ifnull(c.amount,0.00)) AS total_adjustment,SUM(ifnull(d.amount,0.00)) as total_paid FROM sales AS a 
-	// 		LEFT JOIN returnsale AS c ON (a.invno = c.invno)
-	// 		LEFT JOIN receivableitems AS d ON (a.invno = d.invno)
-	// 		LEFT JOIN receivable AS e ON (d.paynum = e.paynum)
-	// 		WHERE (a.status = 'Sold') AND
-	// 		      (a.customercode = '$customercode') AND
-	//  			  ((e.paynum IS NULL) OR (e.paystatus = 'Paid'))
-	// 		GROUP BY a.invno HAVING (a.netamount != total_paid) ORDER BY a.sdate,a.invno");
-	// 	$stmt -> execute();
-	// 		return $stmt -> fetchAll();
-	// 	$stmt -> close();
+	// static public function mdlShowCustomerReceivableList($customercode) {
 	// 	$stmt = null;
+	// 	$connection = null;
+	// 	try {
+	// 		$connection = (new Connection)->connect();
+	// 		$stmt = $connection->prepare("SELECT a.sdate, a.receiptnum, a.invno, a.salemode,
+	// 		                                            a.netamount, a.customercode,
+	// 											        SUM(IFNULL(d.amount, 0.00)) AS total_paid 
+	// 												FROM sales AS a
+	// 												LEFT JOIN receivableitems AS d ON (a.invno = d.invno)
+	// 												LEFT JOIN receivable AS e ON (d.paynum = e.paynum)
+	// 												WHERE (a.status = 'Sold') 
+	// 													AND (a.customercode = :customercode)
+	// 													AND ((e.paynum IS NULL) OR (e.paystatus = 'Paid'))
+	// 												GROUP BY a.invno 
+	// 												HAVING (a.netamount != total_paid)
+	// 												ORDER BY a.sdate, a.invno");
+			
+	// 		$stmt->bindParam(':customercode', $customercode, PDO::PARAM_STR);
+			
+	// 		$stmt->execute();
+	// 		return $stmt->fetchAll();
+	// 	} catch (PDOException $e) {
+	// 		echo "Error: " . $e->getMessage();
+	// 		return [];
+	// 	} finally {
+	// 		// Ensure the statement and connection are properly closed
+	// 		if ($stmt !== null) {
+	// 			$stmt->closeCursor(); // Close the cursor to free up resources
+	// 			$stmt = null;          // Set to null explicitly
+	// 		}
+	// 		if ($connection !== null) {
+	// 			$connection = null;    // Close the database connection explicitly
+	// 		}
+	// 	}
 	// }
 
 	static public function mdlShowCustomerReceivableList($customercode) {
@@ -93,17 +115,33 @@ class ModelReceivable{
 		$connection = null;
 		try {
 			$connection = (new Connection)->connect();
-			$stmt = $connection->prepare("SELECT a.sdate, a.receiptnum, a.invno, a.salemode, a.netamount, a.customercode,
-												  SUM(IFNULL(d.amount, 0.00)) AS total_paid 
-										   FROM sales AS a
-										   LEFT JOIN receivableitems AS d ON (a.invno = d.invno)
-										   LEFT JOIN receivable AS e ON (d.paynum = e.paynum)
-										   WHERE (a.status = 'Sold') 
-											 AND (a.customercode = :customercode)
-											 AND ((e.paynum IS NULL) OR (e.paystatus = 'Paid'))
-										   GROUP BY a.invno 
-										   HAVING (a.netamount != total_paid)
-										   ORDER BY a.sdate, a.invno");
+			$stmt = $connection->prepare("SELECT a.sdate, a.receiptnum, a.invno, a.salemode,a.amount,a.discount,
+			                                            a.netamount, a.customercode,
+					SUM(
+						CASE 
+							WHEN e.paymode = 'Check' AND e.checkdesc = 'Post-dated'
+							THEN d.amount 
+							ELSE 0.00 
+						END
+					) AS pending_amount,
+					SUM(
+						CASE 
+							WHEN (e.paymode = 'Cash' OR (e.paymode = 'Check' AND e.checkdesc = 'On-date'))
+							THEN d.amount
+							ELSE 0.00
+						END
+					) AS posted_amount,
+
+					SUM(IFNULL(d.amount, 0.00)) AS total_paid 
+					FROM sales AS a
+					LEFT JOIN receivableitems AS d ON (a.invno = d.invno)
+					LEFT JOIN receivable AS e ON (d.paynum = e.paynum)
+					WHERE (a.status = 'Sold') 
+						AND (a.customercode = :customercode)
+						AND ((e.paynum IS NULL) OR (e.paystatus = 'Paid'))
+					GROUP BY a.invno 
+					HAVING (a.netamount != total_paid)
+					ORDER BY a.sdate, a.receiptnum");
 			
 			$stmt->bindParam(':customercode', $customercode, PDO::PARAM_STR);
 			
@@ -235,7 +273,7 @@ class ModelReceivable{
 	    if (($reptype == 1) || ($reptype == 2) || ($reptype == 3)){
 			$stmt = (new Connection)->connect()->prepare("SELECT 'A] With/Without Link <= Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.receiptnum,c.netamount,e.paydate,IFNULL(SUM(f.amount),0.00) as amount,c.netamount - IFNULL(SUM(f.amount),0.00) AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) LEFT JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseA GROUP BY c.invno HAVING (balance > 0.00)
 			UNION
-			SELECT 'B] With Link > Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.receiptnum,c.netamount,NULL as paydate,0.00 as amount,c.netamount AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) INNER JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseB GROUP BY c.invno ORDER BY name,invno,detail");	    	
+			SELECT 'B] With Link > Paydate' as detail,b.customercode, b.name,c.sdate,c.invno,c.receiptnum,c.netamount,NULL as paydate,0.00 as amount,c.netamount AS balance,FLOOR(DATEDIFF(CURDATE(),c.sdate)) AS age FROM customer AS b INNER JOIN sales AS c ON (b.customercode = c.customercode) INNER JOIN receivableitems AS f ON (c.invno = f.invno) LEFT JOIN receivable AS e ON (e.paynum = f.paynum) $whereClauseB GROUP BY c.invno ORDER BY name,sdate,receiptnum,detail");	    	
 	    } elseif ($reptype == 3){
 			$stmt = (new Connection)->connect()->prepare("SELECT c.id,c.sdate,c.invno, c.status,IFNULL(e.name,'') as name,IFNULL(f.brandname,'') as brandname,b.prodname,d.qty,d.price,SUM(d.tamount) as tamount FROM category as a INNER JOIN masterproducts as b ON (a.categorycode = b.categorycode) LEFT JOIN brand as f ON (b.brandcode = f.brandcode) INNER JOIN salesitems AS d ON (b.prodid = d.prodid) INNER JOIN sales as c ON (c.invno = d.invno) LEFT JOIN customer as e ON (c.customercode = e.customercode) $whereClause GROUP BY c.id,b.prodname WITH ROLLUP");
 		}

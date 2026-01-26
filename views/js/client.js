@@ -138,5 +138,7 @@ $(function() {
    //      }
    //    })
    // }); 
-
+   $("#btn-print").click(function(){      
+      window.open("extensions/tcpdf/pdf/clientlist.php", "_blank");
+   });
 });

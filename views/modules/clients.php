@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-sm-5 form-group">
                 <label for="tns-name">Customer Name</label>
-                <input type="text" class="form-control text-capitalize" id="tns-name" name="tns-name" autocomplete="nope" required>
+                <input type="text" class="form-control" id="tns-name" name="tns-name" autocomplete="nope" required>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="tns-contactperson">Contact Person</label>
-                <input type="text" class="form-control text-capitalize" id="tns-contactperson" name="tns-contactperson" autocomplete="nope">
+                <input type="text" class="form-control" id="tns-contactperson" name="tns-contactperson" autocomplete="nope">
             </div>                                           
 
             <div class="col-md-1 form-group">
@@ -354,6 +354,8 @@
             <button type="button" class="btn btn-light btn-lg" id="btn-search" data-toggle="modal" data-target="#modal-search-customer"><i class="icon-search4 mr-2"></i> Search</button>
            
             <button type="submit" class="btn btn-light btn-lg"><i class="icon-floppy-disk mr-2"></i> Save</button>
+
+            <button type="button" class="btn btn-light btn-lg" id="btn-print"><i class="icon-printer mr-2"></i> Print</button>
           </span>
         </div>     
       </div>  <!-- card body -->
@@ -415,5 +417,6 @@
   </div>
 </div>
 
-<script src="views/js/client.js"></script>
+<!-- <script src="views/js/client.js"></script> -->
+<script src="views/js/client.js?v=1.1"></script>
 

@@ -11,6 +11,8 @@ class salesEntry{
   public $customercode;
   public $status;
   public $postedby;
+  public $amount;
+  public $discount;
   public $netamount;
   public $remarks;
 
@@ -23,6 +25,8 @@ class salesEntry{
   	$customercode = $this->customercode;
     $status = $this->status;
   	$postedby = $this->postedby;
+    $amount = $this->amount;
+    $discount = $this->discount;
     $netamount = $this->netamount;
   	$remarks = $this->remarks;
 
@@ -33,6 +37,8 @@ class salesEntry{
                   "customercode"=>$customercode,
                   "status"=>$status,
                   "postedby"=>$postedby,
+                  "amount"=>$amount,
+                  "discount"=>$discount,
                   "netamount"=>$netamount,
                   "remarks"=>$remarks);
 
@@ -57,6 +63,8 @@ $processSales -> salemode = $_POST["salemode"];
 $processSales -> customercode = $_POST["customercode"];
 $processSales -> status = $_POST["status"];
 $processSales -> postedby = $_POST["postedby"];
+$processSales -> amount = $_POST["amount"];
+$processSales -> discount = $_POST["discount"];
 $processSales -> netamount = $_POST["netamount"];
 $processSales -> remarks = $_POST["remarks"];
 

@@ -20,7 +20,7 @@ class ModelSale{
 
             $currentDateTime = date('Y-m-d H:i:s');
 
-			$stmt = $pdo->prepare("INSERT INTO sales(invno, receiptnum, sdate, salemode, customercode, status, postedby, netamount, remarks, postinfo) VALUES (:invno, :receiptnum, :sdate, :salemode, :customercode, :status, :postedby, :netamount, :remarks, :postinfo)");
+			$stmt = $pdo->prepare("INSERT INTO sales(invno, receiptnum, sdate, salemode, customercode, status, postedby, amount, discount, netamount, remarks, postinfo) VALUES (:invno, :receiptnum, :sdate, :salemode, :customercode, :status, :postedby, :amount, :discount, :netamount, :remarks, :postinfo)");
 
 			$stmt->bindParam(":invno", $salecode, PDO::PARAM_STR);
 			$stmt->bindParam(":receiptnum", $data["receiptnum"], PDO::PARAM_STR);
@@ -29,6 +29,8 @@ class ModelSale{
 			$stmt->bindParam(":customercode", $data["customercode"], PDO::PARAM_STR);
 			$stmt->bindParam(":status", $data["status"], PDO::PARAM_STR);
 			$stmt->bindParam(":postedby", $data["postedby"], PDO::PARAM_STR);
+			$stmt->bindParam(":amount", $data["amount"], PDO::PARAM_STR);
+			$stmt->bindParam(":discount", $data["discount"], PDO::PARAM_STR);
             $stmt->bindParam(":netamount", $data["netamount"], PDO::PARAM_STR);
             $stmt->bindParam(":remarks", $data["remarks"], PDO::PARAM_STR);
             $stmt->bindParam(":postinfo", $currentDateTime, PDO::PARAM_STR);
@@ -65,6 +67,8 @@ class ModelSale{
                                               customercode = :customercode,
                                               status = :status,
                                               editby = :editby,
+											  amount = :amount,
+											  discount = :discount,
                                               netamount = :netamount,
                                               remarks = :remarks,
                                               editinfo = :editinfo
@@ -77,6 +81,8 @@ class ModelSale{
 			$stmt->bindParam(":customercode", $data["customercode"], PDO::PARAM_STR);
 			$stmt->bindParam(":status", $data["status"], PDO::PARAM_STR);
 			$stmt->bindParam(":editby", $data["postedby"], PDO::PARAM_STR);
+			$stmt->bindParam(":amount", $data["amount"], PDO::PARAM_STR);
+			$stmt->bindParam(":discount", $data["discount"], PDO::PARAM_STR);
             $stmt->bindParam(":netamount", $data["netamount"], PDO::PARAM_STR);
             $stmt->bindParam(":remarks", $data["remarks"], PDO::PARAM_STR);
             $stmt->bindParam(":editinfo", $currentDateTime, PDO::PARAM_STR);

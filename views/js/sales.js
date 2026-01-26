@@ -42,7 +42,8 @@ $(function() {
         '#txt-invno', 
         '#txt-receiptnum', 
         '#sel-salemode', 
-        '#num-netamount', 
+        '#num-amount', 
+        '#num-discount',
         '#txt-remarks', 
         '#btn-new', 
         '#btn-search', 
@@ -91,7 +92,7 @@ $(function() {
         if ($('#sel-salemode').val() == '') {
             emptyFields.push('Sale Mode');
         }
-        if ($('#num-netamount').val().trim() === '0.00') {
+        if ($('#num-amount').val().trim() === '0.00') {
             emptyFields.push('Amount');
         }
     
@@ -245,6 +246,8 @@ $(function() {
         $("#txt-status").val('Sold');
         $("#txt-invno").val('');
         $("#txt-receiptnum").val('');
+        $("#num-amount").val('0.00');
+        $("#num-discount").val('0.00');
         $("#num-netamount").val('0.00');
         $("#txt-remarks").val('');
 
@@ -253,6 +256,35 @@ $(function() {
         // $('#btn-void').prop('disabled', true);
         $('#btn-void').hide();
     }
+
+    function calculateNetAmount() {
+        let amount = parseFloat($('#num-amount').val().replace(/,/g, '')) || 0;
+        let discount = parseFloat($('#num-discount').val().replace(/,/g, '')) || 0;
+
+        if ((discount >= amount && amount > 0.00)||(amount == 0.00 && discount > 0.00)) {
+            swal.fire({
+                title: 'Discount must not be equal or greater than invoice amount!.',
+                type: 'warning',
+                confirmButtonText: 'Got it!',
+                confirmButtonClass: 'btn btn-outline-warning',
+                allowOutsideClick: false,
+                buttonsStyling: false
+            }).then(function(result) {
+                if(result.value) {  
+                    $('#num-discount').val("0.00");
+                    $('#num-netamount').val(numberWithCommas(amount.toFixed(2)));
+                    return;
+                }
+            });
+        }
+
+        let netAmount = amount - discount;
+        $('#num-netamount').val(numberWithCommas(netAmount.toFixed(2)));
+    }
+
+    $('#num-amount, #num-discount').on('change keyup', function() {
+        calculateNetAmount();
+    });
 
     function postsales(){
         $("#btn-save").prop('disabled', true);       
@@ -270,6 +302,12 @@ $(function() {
         let receiptnum = $("#txt-receiptnum").val();
         let salemode = $("#sel-salemode").val();
 
+        var txt_amount = $("#num-amount").val();
+        let amount= parseFloat(txt_amount.replaceAll(",",""));
+
+        var txt_discount = $("#num-discount").val();
+        let discount= parseFloat(txt_discount.replaceAll(",",""));
+
         var txt_netamount = $("#num-netamount").val();
         let netamount= parseFloat(txt_netamount.replaceAll(",",""));
 
@@ -284,6 +322,8 @@ $(function() {
         sales.append("customercode", customercode);
         sales.append("status", status);
         sales.append("postedby", postedby);
+        sales.append("amount", amount);
+        sales.append("discount", discount);
         sales.append("netamount", netamount);
         sales.append("remarks", remarks);
         $.ajax({
@@ -565,6 +605,8 @@ $(function() {
                 $("#txt-invno").val(answer["invno"]);
                 $("#txt-receiptnum").val(answer["receiptnum"]);
                 $("#sel-salemode").val(answer["salemode"]).trigger('change');
+                $("#num-amount").val(numberWithCommas(answer["amount"]));
+                $("#num-discount").val(numberWithCommas(answer["discount"]));
                 $("#num-netamount").val(numberWithCommas(answer["netamount"]));
                 $("#txt-remarks").val(answer["remarks"]);
 

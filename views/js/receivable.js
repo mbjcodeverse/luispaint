@@ -617,6 +617,181 @@ $(function() {
     })
   } 
 
+  // function paintReceivableTable(customercode){
+  //   var data = new FormData();
+  //   data.append("customercode", customercode);
+  //   $.ajax({
+  //      url:"ajax/receivable_customer_list.ajax.php",
+  //      method: "POST",
+  //      data: data,
+  //      cache: false,
+  //      contentType: false,
+  //      processData: false,
+  //      dataType:"json",
+  //      success:function(answer){
+  //         $(".enlisted_receivable").empty();
+
+  //         var _amount = 0.00;
+  //         var _adjustment = 0.00;
+  //         var _netamount = 0.00;
+  //         var _posted = 0.00;
+  //         var _pending = 0.00;
+  //         var _balance = 0.00;          
+
+  //         for(var p = 0; p < answer.length; p++) {
+  //           var pay = answer[p];
+
+  //           let sdate = pay.sdate.split("-");
+  //           sdate = sdate[1] + "/" + sdate[2] + "/" + sdate[0];
+
+  //           var invno = pay.invno;
+  //           var receiptnum = pay.receiptnum;
+  //           var salemode = pay.salemode;
+  //           var totalamount = numberWithCommas(pay.netamount);
+  //           var totaladjustment = '0.00';
+
+  //           var net_amount = Number(pay.netamount);
+  //           var netamount = numberWithCommas(net_amount.toFixed(2));
+
+  //           var totalposted;
+  //           var totalpending;
+
+  //           var posted_amount;
+  //           var pending_amount;
+  //           // async = false [so that variables inside AJAX below can be access outside when printing variables on table]
+  //           var pay_data = new FormData();
+  //           pay_data.append("invno", invno);
+  //           $.ajax({
+  //              url:"ajax/receivable_get_posted_pending.ajax.php",
+  //              method: "POST",
+  //              data: pay_data,
+  //              async: false,
+  //              cache: false,
+  //              contentType: false,
+  //              processData: false,
+  //              dataType:"json",
+  //              success:function(posted_pending){
+  //                 posted_amount = posted_pending[0].total_amount;
+  //                 pending_amount = posted_pending[1].total_amount;
+
+  //                 if (posted_amount == null){
+  //                   totalposted = '0.00';
+  //                 }else{
+  //                   totalposted = numberWithCommas(posted_amount);
+  //                   // _posted += Number(posted_amount);
+  //                 }
+
+  //                 if (pending_amount == null){
+  //                   totalpending = '0.00';
+  //                 }else{
+  //                   totalpending = numberWithCommas(pending_amount);
+  //                   // _pending += Number(pending_amount);
+  //                 }
+  //              }
+  //           })
+            
+  //           // Calculate Balance of each Invoice #
+  //           var tposted = Number(totalposted.replaceAll(",",""));
+  //           var tpending = Number(totalpending.replaceAll(",",""));
+
+  //           var balance = net_amount - (tposted + tpending);
+  //           var totalbalance = numberWithCommas(balance.toFixed(2));
+  //           _balance += balance;
+
+  //           if (balance > 0.00){
+  //             // allow only values to TOTALS to be included
+  //             // if balance for individual DELNUMBER > 0.00
+  //             // see Footer of Table
+  //             _amount += Number(pay.netamount);
+  //             _adjustment += 0.00;
+  //             _netamount += net_amount;
+  //             _posted += Number(posted_amount);
+  //             _pending += Number(pending_amount);
+
+  //             // Since Balance > 0.00, add row to table
+  //             $(".enlisted_receivable").append(
+  //               '<tr>'+               
+  //                 '<td class="del_date" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:center;" class="form-control sdate numeric" invno="'+invno+'" name="sdate" value="'+sdate+'" readonly required>'+
+  //                 '</td>' +
+
+  //                 '<td class="del_number" width="11%" style="padding:2px;">'+
+  //                    '<button type="button" class="col-sm-10 btn btn-outline btn-sm bg-green-400 border-green-400 text-green-400 btn-icon ml-2 btnCreditDetails" invno="'+invno+'">'+receiptnum+'</button>'+
+  //                 '</td>' +  
+
+  //                 '<td class="total_amount" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:center;color:#f0c7fc;" class="form-control totalamount numeric" invno="'+invno+'" name="totalamount" value="'+invno+'" readonly required>'+
+  //                 '</td>' +  
+
+  //                 '<td class="total_adjustment" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:right;" class="form-control totaladjustment numeric" invno="'+invno+'" name="totaladjustment" value="'+totaladjustment+'" readonly required>'+
+  //                 '</td>' + 
+
+  //                 '<td class="net_amount" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:right;color:#a2edfa;" class="form-control netamount numeric" invno="'+invno+'" name="netamount" value="'+netamount+'" readonly required>'+
+  //                 '</td>' +                   
+
+  //                 '<td class="total_posted" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:right;color:#9dfcad;" class="form-control totalposted numeric" invno="'+invno+'" name="totalposted" value="'+totalposted+'" readonly required>'+
+  //                 '</td>' + 
+
+  //                 '<td class="total_pending" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:right;color:#fcda9a;" class="form-control totalpending numeric" invno="'+invno+'" name="totalpending" value="'+totalpending+'" readonly required>'+
+  //                 '</td>' + 
+
+  //                 '<td class="total_balance" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:right;color:#fc90b1;" class="form-control totalbalance numeric" invno="'+invno+'" name="totalbalance" value="'+totalbalance+'" readonly required>'+
+  //                 '</td>' +                                                                      
+
+  //                 '<td class="payment" width="11%" style="padding:2px;">'+
+  //                    '<input type="text" style="padding:2px;padding-right:6px;text-align:right;color:transparent;text-shadow: 0 0 0 #ffffff;" class="form-control payment numeric" invno="'+invno+'" name="payment" value="0.00">'+
+  //                 '</td>' +                                
+  //               '</tr>');
+  //           }
+  //         }
+
+  //         var _amount_total = numberWithCommas(_amount.toFixed(2));
+  //         $("#total-amount").val(_amount_total);
+
+  //         var _adjustment_total = numberWithCommas(_adjustment.toFixed(2));
+  //         $("#total-adjustment").val(_adjustment_total);
+
+  //         var _netamount_total = numberWithCommas(_netamount.toFixed(2));
+  //         $("#total-netamount").val(_netamount_total);
+
+  //         var _posted_total = numberWithCommas(_posted.toFixed(2));
+  //         $("#total-posted").val(_posted_total); 
+          
+  //         var _pending_total = numberWithCommas(_pending.toFixed(2));
+  //         $("#total-pending").val(_pending_total); 
+
+  //         var _balance_total = numberWithCommas(_balance.toFixed(2));
+  //         $("#total-balance").val(_balance_total);                       
+  //      }
+  //   });
+
+  //   $("#modal-search-receivable").modal('hide');
+
+  //   //Initialize entry
+  //   $("#sel-paymode").val('').trigger('change');
+  //   $("#sel-checkdesc").val('').trigger('change');
+  //   $("#tns-checknum").val('');
+  //   $("#sel-bankcode").val('').trigger('change');
+  //   $("#date-checkdate").val('');
+
+  //   disableControls();
+
+  //   //get Current Date
+  //   let today = new Date().toLocaleDateString();
+  //   $("#date-paydate").val(today);
+  //   $("#date-posted").val(today);
+
+  //   $("#date-paydate").prop('disabled', false);
+  //   $("#sel-paymode").prop('disabled', false);
+
+  //   checkEmptyEntry();
+  // }
+
   function paintReceivableTable(customercode){
     var data = new FormData();
     data.append("customercode", customercode);
@@ -650,46 +825,29 @@ $(function() {
             var totalamount = numberWithCommas(pay.netamount);
             var totaladjustment = '0.00';
 
+            var inv_amount = Number(pay.amount);
+            var amount = numberWithCommas(inv_amount.toFixed(2));
+
+            var inv_discount = Number(pay.discount);
+            var discount = numberWithCommas(inv_discount.toFixed(2));
+
             var net_amount = Number(pay.netamount);
             var netamount = numberWithCommas(net_amount.toFixed(2));
 
-            var totalposted;
-            var totalpending;
+            var posted_amount = pay.posted_amount;
+            if (posted_amount == '0.00'){
+              var totalposted = '0.00';
+            }else{
+              var totalposted = numberWithCommas(posted_amount);
+            }
 
-            var posted_amount;
-            var pending_amount;
-            // async = false [so that variables inside AJAX below can be access outside when printing variables on table]
-            var pay_data = new FormData();
-            pay_data.append("invno", invno);
-            $.ajax({
-               url:"ajax/receivable_get_posted_pending.ajax.php",
-               method: "POST",
-               data: pay_data,
-               async: false,
-               cache: false,
-               contentType: false,
-               processData: false,
-               dataType:"json",
-               success:function(posted_pending){
-                  posted_amount = posted_pending[0].total_amount;
-                  pending_amount = posted_pending[1].total_amount;
+            var pending_amount = pay.pending_amount;
+            if (pending_amount == '0.00'){
+              var totalpending = '0.00';
+            }else{
+              var totalpending = numberWithCommas(pending_amount);
+            }
 
-                  if (posted_amount == null){
-                    totalposted = '0.00';
-                  }else{
-                    totalposted = numberWithCommas(posted_amount);
-                    // _posted += Number(posted_amount);
-                  }
-
-                  if (pending_amount == null){
-                    totalpending = '0.00';
-                  }else{
-                    totalpending = numberWithCommas(pending_amount);
-                    // _pending += Number(pending_amount);
-                  }
-               }
-            })
-            
             // Calculate Balance of each Invoice #
             var tposted = Number(totalposted.replaceAll(",",""));
             var tpending = Number(totalpending.replaceAll(",",""));
@@ -702,8 +860,8 @@ $(function() {
               // allow only values to TOTALS to be included
               // if balance for individual DELNUMBER > 0.00
               // see Footer of Table
-              _amount += Number(pay.netamount);
-              _adjustment += 0.00;
+              _amount += Number(pay.amount);
+              _adjustment += Number(pay.discount);
               _netamount += net_amount;
               _posted += Number(posted_amount);
               _pending += Number(pending_amount);
@@ -720,11 +878,11 @@ $(function() {
                   '</td>' +  
 
                   '<td class="total_amount" width="11%" style="padding:2px;">'+
-                     '<input type="text" style="padding:2px;padding-right:6px;text-align:center;color:#f0c7fc;" class="form-control totalamount numeric" invno="'+invno+'" name="totalamount" value="'+invno+'" readonly required>'+
+                     '<input type="text" style="padding:2px;padding-right:6px;text-align:right;" class="form-control totalamount numeric" invno="'+invno+'" name="totalamount" value="'+amount+'" readonly required>'+
                   '</td>' +  
 
                   '<td class="total_adjustment" width="11%" style="padding:2px;">'+
-                     '<input type="text" style="padding:2px;padding-right:6px;text-align:right;" class="form-control totaladjustment numeric" invno="'+invno+'" name="totaladjustment" value="'+totaladjustment+'" readonly required>'+
+                     '<input type="text" style="padding:2px;padding-right:6px;text-align:right;" class="form-control discount numeric" invno="'+invno+'" name="discount" value="'+discount+'" readonly required>'+
                   '</td>' + 
 
                   '<td class="net_amount" width="11%" style="padding:2px;">'+

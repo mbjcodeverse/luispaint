@@ -44,7 +44,7 @@
                       <tr>
                         <td width="10%" style="border-right: 1px solid #808080;">&nbsp;&nbsp;Date</td>
                         <td width="12%" style="border-right: 1px solid #808080;">Receipt #</td>
-                        <td width="11%" style="text-align: left;border-right: 1px solid #808080;padding-right:6px;">&nbsp;&nbsp;Invoice #</td>
+                        <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Amount</td>
                         <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Adjustment</td>
                         <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Net Amnt</td>
                         <td width="11%" style="text-align: right;border-right: 1px solid #808080;padding-right:6px;">Posted</td>
@@ -322,6 +322,6 @@
   </div>
 </div>
 
-<script src="views/js/receivable.js?v=1.0"></script>
+<script src="views/js/receivable.js?v=1.2"></script>
 
 

@@ -153,6 +153,14 @@ class ModelClients{
 		$stmt = null;
 	}
 
+	static public function mdlShowActiveCustomerList(){
+		$stmt = (new Connection)->connect()->prepare("SELECT * FROM customer WHERE (isactive = 1) ORDER BY name");
+		$stmt -> execute();
+		return $stmt -> fetchAll();
+		$stmt -> close();
+		$stmt = null;
+	}	
+
 	static public function mdlShowCustomerInfo($item, $value){
 		$stmt = (new Connection)->connect()->prepare("SELECT * FROM customer WHERE $item = :$item");
 		$stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);

@@ -25,7 +25,7 @@
               <select class="form-control select-search" data-container-css-class="border-secondary" data-dropdown-css-class="border-secondary" id="sel-customercode" name="sel-customercode" required>
                 <option value="" selected hidden disabled>&lt;&nbsp;Select Client&nbsp;&gt;</option>
                 <?php
-                    $clients = (new ControllerClients)->ctrShowCustomerList();
+                    $clients = (new ControllerClients)->ctrShowActiveCustomerList();
                     foreach ($clients as $key => $value) {
                     echo '<option value="'.$value["customercode"].'">'.$value["name"].'</option>';
                     }
@@ -65,14 +65,29 @@
             </div>
 
             <div class="col-sm-2 form-group">
-                <label for="num-netamount">Amount</label>
-                <input type="text" style="font-size:1em;padding:2px;padding-right:17px;text-align:right;color:transparent;text-shadow: 0 0 0 #ffffff;" class="form-control qty numeric" name="num-netamount" id="num-netamount" value="0.00" required>
+            </div>
+
+            <div class="col-sm-2 form-group">
+                <label for="num-amount">Amount</label>
+                <input type="text" style="font-size:1.2em;padding:2px;padding-right:17px;text-align:right;color:transparent;text-shadow: 0 0 0 #ffffff;" class="form-control qty numeric" name="num-amount" id="num-amount" value="0.00" required>
+            </div> 
+            
+            <div class="col-sm-2 form-group">
+                <label for="num-discount">Adjustment</label>
+                <input type="text" style="font-size:1.2em;padding:2px;padding-right:17px;text-align:right;color:transparent;text-shadow: 0 0 0 #ffffff;" class="form-control qty numeric" name="num-discount" id="num-discount" value="0.00" required>
             </div>            
 
-            <div class="col-sm-6 form-group">
+            <div class="col-sm-2 form-group">
+                <label for="num-netamount">Net Amount</label>
+                <input type="text" style="font-size:1.2em;padding:2px;padding-right:17px;text-align:right;color:transparent;text-shadow: 0 0 0 #ffffff;" class="form-control qty numeric" name="num-netamount" id="num-netamount" value="0.00" required disabled>
+            </div>            
+        </div>
+
+        <div class="row" style="margin-top:-15px;">
+            <div class="col-sm-12 form-group">
                 <label for="txt-remarks">Remarks</label>
                 <input type="text" class="form-control" id="txt-remarks" name="txt-remarks" autocomplete="nope">
-            </div>          
+            </div> 
         </div>
 
         <div class="clearfix">
@@ -265,6 +280,6 @@
   </div>
 </div>
 
-<script src="views/js/sales.js"></script>
-<!-- <script src="views/js/sales.js?v=1.0.2"></script> -->
+<!-- <script src="views/js/sales.js"></script> -->
+<script src="views/js/sales.js?v=1.2"></script>
 

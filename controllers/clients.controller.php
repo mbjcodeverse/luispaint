@@ -95,7 +95,12 @@ class ControllerClients{
 	static public function ctrShowCustomerList(){
 		$answer = (new ModelClients)->mdlShowCustomerList();
 		return $answer;
-	}		
+	}	
+	
+	static public function ctrShowActiveCustomerList(){
+		$answer = (new ModelClients)->mdlShowActiveCustomerList();
+		return $answer;
+	}	
 
 	static public function ctrShowCustomerInfo($item, $value){
 		$answer = (new ModelClients)->mdlShowCustomerInfo($item, $value);
